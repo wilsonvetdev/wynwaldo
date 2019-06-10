@@ -8,7 +8,7 @@ Swap it out with your actual wireframes...
 
 ![Wireframe Example](readme_assets/wireframe_example.jpg)
 
-## Todo: Submit your ERD in the form of a pull request
+## TODO: Submit your ERD in the form of a pull request
 
 This example Entity Relational Diagram lives in `readme_assets/erd_example.png`
 
