@@ -1,20 +1,12 @@
 # Final Project
 
-## TODO: Submit your wireframes in the form of a pull request
-
-This example wireframe lives in `readme_assets/wireframe_example.jpg`
-
-Swap it out with your actual wireframes...
+## Wireframe
 
 ![Wireframe Example](readme_assets/wireframe.png)
 
-## TODO: Submit your ERD in the form of a pull request
-
-This example Entity Relational Diagram lives in `readme_assets/erd_example.png`
+## ERD
 
 ![ERD Example](readme_assets/erd.png)
-
-Swap it out with your actual ERD...
 
 ## Deployment
 
