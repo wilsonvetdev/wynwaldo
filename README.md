@@ -7,7 +7,9 @@
 ## ERD
 
 ![ERD Example](readme_assets/erd.png)
-^^`visits` and `keywords` are not attributes of the `Photo` model -- AW
+^^`visits` and `keywords` are not attributes of the `Photo` or `User` models -- AW
+^^ Images will be handled through `ActiveStorage`: https://edgeguides.rubyonrails.org/active_storage_overview.html#has-one-attached
+
 
 ## Deployment
 
