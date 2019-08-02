@@ -7,6 +7,7 @@
 ## ERD
 
 ![ERD Example](readme_assets/erd.png)
+^^`visits` and `keywords` are not attributes of the `Photo` model -- AW
 
 ## Deployment
 
