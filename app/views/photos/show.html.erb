@@ -1,3 +1,10 @@
 <h1>Wynwood Wall Pictures</h1>
 
 <%= image_tag @photo.image, height: '200' %>
+
+<p>
+  Latitude: <%= @photo.image.blob.metadata["latitude"] %>
+</p>
+<p>
+  Longitude: <%= @photo.image.blob.metadata["longitude"] %>
+</p>
