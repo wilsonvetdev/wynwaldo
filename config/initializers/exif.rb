@@ -8,7 +8,7 @@ module ActiveStorage
           { width: image.height, height: image.width }
         else
           { width: image.width, height: image.height }
-        end.merge(gps_from_exif(image) || {})
+        end.merge(gps_from_exif(image))
       end
     rescue LoadError
       logger.info "Skipping image analysis because the mini_magick gem isn't installed"
@@ -30,6 +30,7 @@ module ActiveStorage
         end
       end
     rescue EXIFR::MalformedImage, EXIFR::MalformedJPEG
+      {}
     end
   end
 end
