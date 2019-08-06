@@ -1,7 +1,7 @@
 class PhotosController < ApplicationController
   def index
     @photo = Photo.new
-    @photos = Photo.all
+    @photos = Photo.with_attached_image
   end
 
   def show
@@ -10,7 +10,6 @@ class PhotosController < ApplicationController
 
   def create
     photo = Photo.create!(photo_params)
-    user.image.attach(params[:image])
     redirect_to photo_path(photo.id)
   end
 

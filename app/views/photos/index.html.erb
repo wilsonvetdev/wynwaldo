@@ -3,5 +3,5 @@
 <%= render 'form', photo: @photo %>
 
 <% @photos.each do |photo| %>
-  <%= image_tag photo.image, height: '200' %>
+  <%= image_tag photo.image, height: '200' if photo.image.attached?  %>
 <% end %>
