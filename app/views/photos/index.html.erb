@@ -1,7 +1,9 @@
-<h1> Wilson = Winston </h1>
+<h1> Wilson = Winston = Waldo </h1>
 
 <%= render 'form', photo: @photo %>
 
 <% @photos.each do |photo| %>
-  <%= image_tag photo.image, height: '200' if photo.image.attached?  %>
-<% end %>
+  <%= link_to photo_path(photo.id) do  %>
+    <%= image_tag photo.image if photo.image.attached? %>
+  <% end %>
+<% end %> 
