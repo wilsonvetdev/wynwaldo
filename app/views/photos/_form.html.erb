@@ -1,4 +1,2 @@
-<%= form_with(model: photo) do |form| %>
-  <%= form.file_field :image %>
-  <%= submit_tag 'Submit' %>
+<%= form_with(model: photo, :html => {class: 'dropzone', id: 'image-upload-dropzone'}) do |form| %>
 <% end %>
