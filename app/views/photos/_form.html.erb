@@ -1,2 +1,28 @@
-<%= form_with(model: photo, :html => {class: 'dropzone', id: 'image-upload-dropzone'}) do |form| %>
+<%= form_with(
+      model: photo,
+      html: { class: 'dropzone', id: 'image-upload-dropzone' }
+    ) do %>
 <% end %>
+
+<script>
+  document.addEventListener("turbolinks:load", function(){
+    if(document.getElementById('image-upload-dropzone')){
+      try{
+        new Dropzone('#image-upload-dropzone', {
+          paramName: 'photo[image]',
+          uploadMultiple: false,
+          init: function(){
+            this.on('success', function(_file, response){
+              Turbolinks.visit(response.location)
+            })
+            this.on('complete', function(file) {
+              this.removeAllFiles(true);
+            })
+          }
+        })
+      }catch{
+
+      }
+    }
+  })
+</script>

@@ -12,10 +12,12 @@ class PhotosController < ApplicationController
     photo = Photo.create(photo_params)
     photo.image.blob.analyze
     if photo.image.blob.metadata["latitude"] && photo.image.blob.metadata["longitude"]
-      redirect_to photo, notice: "Photo created!"
+      flash[:notice] = "Photo uploaded!"
+      render json: { location: photo_path(photo) }
     else
       photo.destroy
-      redirect_to photos_url, alert: "Sorry, we couldn't determine the location of that photo."
+      flash[:alert] = "Sorry, we couldn't determine the location of that photo."
+      render json: { location: photos_path }
     end
   end
 
