@@ -17,7 +17,7 @@ class PhotosController < ApplicationController
     else
       photo.destroy
       flash[:alert] = "Sorry, we couldn't determine the location of that photo."
-      render json: { location: photos_path }
+      render json: { location: root_path }
     end
   end
 
