@@ -3,34 +3,35 @@
   html: { class: 'dropzone', id: 'image-upload-dropzone' }
 ) do %>
 <% end %>
-
 <script>
-document.addEventListener("turbolinks:load", function(){
-  const form = document.getElementById('image-upload-dropzone');
-  if (!form || window.myDrop) return;
-  form.addEventListener('click', resetFile)
-  try{
-    window.myDrop = new Dropzone('#image-upload-dropzone', {
-      paramName: 'photo[image]',
-      uploadMultiple: false,
-      acceptedFiles: 'image/jpeg',
-      init: function(){
-        this.on('success', function(_file, response){
-          Turbolinks.visit(response.location)
+  document.addEventListener("turbolinks:load", function(){
+    const form = document.getElementById('image-upload-dropzone');
+    if (form){
+      try{
+        window.myDrop = new Dropzone('#image-upload-dropzone', {
+          paramName: 'photo[image]',
+          uploadMultiple: false,
+          acceptedFiles: 'image/jpeg',
+          init: function(){
+            this.on('success', function(_file, response){
+              Turbolinks.visit(response.location)
+            })
+            this.on('error', function(_file, errorMessage){
+              const self = this
+              if (errorMessage === "You can't upload files of this type."){
+                document.querySelector('.dz-error').addEventListener('click', function(){
+                  self.removeAllFiles()
+                })
+              }
+            })
+            this.on('addedfile', function(file) {
+              this.files.length > 1 && this.removeFile(this.files[0])
+            });
+          }
         })
-        this.on('addedfile', function(file) {
-          this.files.length > 1 && this.removeFile(this.files[0])
-        });
+      }catch (e) {
+        console.log('This is an error', e)
       }
-    })
-  }catch (e) {
-    console.log('This is an error', e)
-  }
-}) 
-
-function resetFile() {
-  const { myDrop } = window
-  const file = myDrop && myDrop.files && myDrop.files[0]
-  myDrop.removeFile(file)
-}
+    }
+  })
 </script>
