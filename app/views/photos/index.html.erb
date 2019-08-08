@@ -2,8 +2,12 @@
 
 <%= render 'form', photo: @photo %>
 
-<% @photos.each do |photo| %>
-  <%= link_to photo_path(photo.id) do  %>
-    <%= image_tag photo.image if photo.image.attached? %>
-  <% end %>
-<% end %> 
+<ul>
+  <% @photos.each do |photo| %>
+    <li>
+      <%= link_to photo_path(photo.id) do  %>
+          <%= image_tag photo.image if photo.image.attached? %>
+      <% end %>
+    </li>
+  <% end %> 
+</ul>
