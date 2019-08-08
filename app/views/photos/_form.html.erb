@@ -1,26 +1,36 @@
 <%= form_with(
-      model: photo,
-      html: { class: 'dropzone', id: 'image-upload-dropzone' }
-    ) do %>
+  model: photo,
+  html: { class: 'dropzone', id: 'image-upload-dropzone' }
+) do %>
 <% end %>
 
 <script>
-  document.addEventListener("turbolinks:load", function(){
-    if(document.getElementById('image-upload-dropzone')){
-      try{
-        new Dropzone('#image-upload-dropzone', {
-          paramName: 'photo[image]',
-          uploadMultiple: false,
-          acceptedFiles: 'image/jpeg',
-          init: function(){
-            this.on('success', function(_file, response){
-              Turbolinks.visit(response.location)
-            })
-          }
+document.addEventListener("turbolinks:load", function(){
+  const form = document.getElementById('image-upload-dropzone');
+  if (!form || window.myDrop) return;
+  form.addEventListener('click', resetFile)
+  try{
+    window.myDrop = new Dropzone('#image-upload-dropzone', {
+      paramName: 'photo[image]',
+      uploadMultiple: false,
+      acceptedFiles: 'image/jpeg',
+      init: function(){
+        this.on('success', function(_file, response){
+          Turbolinks.visit(response.location)
         })
-      }catch{
-
+        this.on('addedfile', function(file) {
+          this.files.length > 1 && this.removeFile(this.files[0])
+        });
       }
-    }
-  })
+    })
+  }catch (e) {
+    console.log('This is an error', e)
+  }
+}) 
+
+function resetFile() {
+  const { myDrop } = window
+  const file = myDrop && myDrop.files && myDrop.files[0]
+  myDrop.removeFile(file)
+}
 </script>
