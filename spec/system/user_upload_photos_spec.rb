@@ -1,9 +1,4 @@
 require "rails_helper"
-require './spec/support/integration_helper'
-
-RSpec.configure do |c|
-  c.include IntegrationSpecHelper
-end
 
 RSpec.describe "upload photo", type: :system, js: true do
   context "when uploading photo that has location" do
