@@ -9,7 +9,6 @@ FactoryBot.define do
     end
     latitude { nil }
     longitude { nil }
-    pull_coords_from_image_metadata { true }
     after(:create) do |photo, args|
       photo.latitude = photo.image.blob.metadata[:latitude] if args.gps
       photo.longitude = photo.image.blob.metadata[:longitude] if args.gps
