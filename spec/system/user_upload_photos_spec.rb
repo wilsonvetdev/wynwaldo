@@ -63,7 +63,7 @@ RSpec.describe "upload photo", type: :system, js: true do
       expect(page.find('#image-upload-dropzone')).to have_selector('.dz-image-preview', count: 1)
     end
     
-    it "should have error on the image preview" do
+    xit "should have error on the image preview" do
       error = page.find('#image-upload-dropzone > .dz-image-preview > .dz-error-message')
       expect(error).to have_text("You can't upload files of this type.")
     end
@@ -79,7 +79,7 @@ RSpec.describe "upload photo", type: :system, js: true do
         # check if theres still one file
         expect(page.find('#image-upload-dropzone')).to have_selector('.dz-image-preview', count: 1) 
       end
-      it "should allow user to click on form to clear files" do
+      xit "should allow user to click on form to clear files" do
         page.find('#image-upload-dropzone').click        
         expect(page.find('#image-upload-dropzone')).to_not have_selector('.dz-image-preview') 
       end
