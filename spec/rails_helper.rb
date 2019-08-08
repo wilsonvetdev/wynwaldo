@@ -23,6 +23,10 @@ require File.expand_path('../support/factory_bot', __FILE__)
 #
 # Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 
+Capybara.app_host = "http://127.0.0.1:3002"
+Capybara.server_host = "127.0.0.1"
+Capybara.server_port = "3002"
+
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
 begin
