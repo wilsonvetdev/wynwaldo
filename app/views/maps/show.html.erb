@@ -1,1 +1,5 @@
-<%= react_component 'Map', props: { token: ENV['MAPBOX_TOKEN'] } %>
+<%= react_component 'Map',
+    props:  {
+              token:        ENV['MAPBOX_TOKEN'],
+              coordinates:  @coordinates
+            } %>

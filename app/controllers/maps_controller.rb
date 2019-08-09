@@ -1,7 +1,10 @@
 class MapsController < ApplicationController
   def show
     respond_to do |format|
-      format.html
+      format.html do
+        @coordinates = request.location.coordinates.reverse
+        @coordinates = [0.0, 0.0] if @coordinates.empty?
+      end
       format.json do
         @photos = Photo.all
         render json: {
