@@ -1,6 +1,6 @@
 ## We've written some code that we think might achieve the following:
 
-closes issue #{ISSUE_NUMBER_HERE}
+closes #{ISSUE_NUMBER_HERE}
 
 ## If this PR is assigned to you, please give our code a look
 
