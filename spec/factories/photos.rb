@@ -5,7 +5,7 @@ FactoryBot.define do
     end
 
     trait :with_image do
-      image { Rack::Test::UploadedFile.new('spec/support/assets/location.jpeg', 'image/jpeg') }
+      image { Rack::Test::UploadedFile.new('spec/support/assets/good/location.jpeg', 'image/jpeg') }
     end
     latitude { nil }
     longitude { nil }
@@ -16,7 +16,7 @@ FactoryBot.define do
   end
   factory :photo_no_gps, class: Photo do
     trait :with_image do
-      image { Rack::Test::UploadedFile.new('spec/support/assets/no-location.jpg', 'image/jpeg') }
+      image { Rack::Test::UploadedFile.new('spec/support/assets/bad/no-location.jpg', 'image/jpeg') }
     end
   end
 end

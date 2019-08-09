@@ -4,7 +4,7 @@ RSpec.describe "uploading photo", type: :system, js: true do
   context "when photo has location" do
     before do
       visit root_path
-      page.attach_file("#{Rails.root}/spec/support/assets/location.jpeg", visible: false) do
+      page.attach_file("#{Rails.root}/spec/support/assets/good/location.jpeg", visible: false) do
         page.find('.dz-hidden-input', visible: false)
       end
       sleep 1
@@ -31,7 +31,7 @@ RSpec.describe "uploading photo", type: :system, js: true do
   context "when photo has no location" do
     before do
       visit root_path
-      page.attach_file("#{Rails.root}/spec/support/assets/no-location.jpg", visible: false) do
+      page.attach_file("#{Rails.root}/spec/support/assets/bad/no-location.jpg", visible: false) do
         page.find('.dz-hidden-input', visible: false)
       end
       sleep 1
@@ -49,7 +49,7 @@ RSpec.describe "uploading photo", type: :system, js: true do
   context "when photo is not a jpeg" do
     before do
       visit root_path
-      page.attach_file("#{Rails.root}/spec/support/assets/image.png", visible: false) do
+      page.attach_file("#{Rails.root}/spec/support/assets/bad/image.png", visible: false) do
         page.find('.dz-hidden-input', visible: false)
       end
       sleep 1
@@ -75,14 +75,14 @@ RSpec.describe "uploading photo", type: :system, js: true do
   context "when file already in dropzone" do
     before do
       visit root_path
-      page.attach_file("#{Rails.root}/spec/support/assets/image.png", visible: false) do
+      page.attach_file("#{Rails.root}/spec/support/assets/bad/image.png", visible: false) do
         page.find('.dz-hidden-input', visible: false)
       end
       sleep 1
     end
 
     it "should remove the first file when submitting another error file" do
-      page.attach_file("#{Rails.root}/spec/support/assets/image2.png", visible: false) do
+      page.attach_file("#{Rails.root}/spec/support/assets/bad/image2.png", visible: false) do
         page.find('#image-upload-dropzone')
       end
       sleep 1
@@ -99,7 +99,7 @@ RSpec.describe "uploading photo", type: :system, js: true do
     end
 
     it "should still work with a photo that has location" do
-      page.attach_file("#{Rails.root}/spec/support/assets/location.jpeg", visible: false) do
+      page.attach_file("#{Rails.root}/spec/support/assets/good/location.jpeg", visible: false) do
         page.find('#image-upload-dropzone')
       end
       sleep 1
@@ -110,7 +110,7 @@ RSpec.describe "uploading photo", type: :system, js: true do
     end
 
     it "should display error with a photo that has no location" do
-      page.attach_file("#{Rails.root}/spec/support/assets/no-location.jpg", visible: false) do
+      page.attach_file("#{Rails.root}/spec/support/assets/bad/no-location.jpg", visible: false) do
         page.find('#image-upload-dropzone')
       end
       sleep 1
