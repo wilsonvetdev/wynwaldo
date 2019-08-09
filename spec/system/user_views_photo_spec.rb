@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "viewing photos", type: :system, js: true do  
   before do
     visit root_path
-    page.attach_file("#{Rails.root}/spec/support/assets/location.jpeg", visible: false) do
+    page.attach_file("#{Rails.root}/spec/support/assets/good/location.jpeg", visible: false) do
       page.find('#image-upload-dropzone').click
     end
     sleep 1
