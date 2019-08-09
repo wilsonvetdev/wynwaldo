@@ -1,7 +1,7 @@
 require "rails_helper"
 
-RSpec.describe "upload photo", type: :system, js: true do
-  context "when uploading photo that has location" do
+RSpec.describe "uploading photo", type: :system, js: true do
+  context "when photo has location" do
     before do
       visit root_path
       page.attach_file("#{Rails.root}/spec/support/assets/location.jpeg", visible: false) do
@@ -28,7 +28,7 @@ RSpec.describe "upload photo", type: :system, js: true do
     end
   end
 
-  context "when uploading photo that has no location" do
+  context "when photo has no location" do
     before do
       visit root_path
       page.attach_file("#{Rails.root}/spec/support/assets/no-location.jpg", visible: false) do
@@ -46,11 +46,11 @@ RSpec.describe "upload photo", type: :system, js: true do
     end
   end
 
-  context "when uploading photo that is not a jpeg" do
+  context "when photo is not a jpeg" do
     before do
       visit root_path
       page.attach_file("#{Rails.root}/spec/support/assets/image.png", visible: false) do
-        page.find('#image-upload-dropzone').click
+        page.find('.dz-hidden-input', visible: false)
       end
       sleep 1
     end
@@ -60,40 +60,63 @@ RSpec.describe "upload photo", type: :system, js: true do
     end
 
     it "should have a single file in the dropzone" do
-      expect(page.find('#image-upload-dropzone')).to have_selector('.dz-image-preview', count: 1)
+      files = page.all('#image-upload-dropzone > .dz-image-preview')
+      expect(files.length).to eq(1)
+      expect(files[0]).to have_css("img[alt*='image.png']")
     end
     
-    xit "should have error on the image preview" do
-      error = page.find('#image-upload-dropzone > .dz-image-preview > .dz-error-message')
-      expect(error).to have_text("You can't upload files of this type.")
+    it "should have error on the image preview" do
+      find('#image-upload-dropzone > .dz-error').hover
+      errorMessage = page.find('#image-upload-dropzone > .dz-error > .dz-error-message')
+      expect(errorMessage).to have_text("You can't upload files of this type.")
     end
-    
-    context "when file already in dropzone" do
-      xit "should remove the first file when submitting another file" do
-        # add a second file - ***not working***
-        page.attach_file("#{Rails.root}/spec/support/assets/image2.png", visible: false) do
-          page.find('#image-upload-dropzone')
-        end
-        sleep 1
-        
-        # check if theres still one file
-        expect(page.find('#image-upload-dropzone')).to have_selector('.dz-image-preview', count: 1) 
-      end
-      xit "should allow user to click on form to clear files" do
-        page.find('#image-upload-dropzone').click        
-        expect(page.find('#image-upload-dropzone')).to_not have_selector('.dz-image-preview') 
-      end
-      it "should still work with a photo that has location if there is an error file" do
-        page.find('#image-upload-dropzone').click 
-        page.attach_file("#{Rails.root}/spec/support/assets/location.jpeg", visible: false) do
-          page.find('#image-upload-dropzone').click
-        end
-        sleep 1
+  end
 
-        expect(page.current_path).to eq(photo_path(Photo.last.id))
-        expect(page).to have_text("Photo uploaded!")
-        expect(page).to have_css("img[src*='#{url_for(Photo.last.image)}']")
+  context "when file already in dropzone" do
+    before do
+      visit root_path
+      page.attach_file("#{Rails.root}/spec/support/assets/image.png", visible: false) do
+        page.find('.dz-hidden-input', visible: false)
       end
+      sleep 1
+    end
+
+    it "should remove the first file when submitting another error file" do
+      page.attach_file("#{Rails.root}/spec/support/assets/image2.png", visible: false) do
+        page.find('#image-upload-dropzone')
+      end
+      sleep 1
+
+      files = page.all('#image-upload-dropzone > .dz-image-preview')
+      expect(files.length).to eq(1)
+      expect(files[0]).to have_css("img[alt*='image2.png']")
+      expect(files[0]).to_not have_css("img[alt*='image.png']")
+    end
+
+    it "should allow user to click on error image to clear dropzone" do
+      page.find('#image-upload-dropzone > .dz-error').click
+      expect(page.find('#image-upload-dropzone')).to_not have_selector('.dz-image-preview') 
+    end
+
+    it "should still work with a photo that has location" do
+      page.attach_file("#{Rails.root}/spec/support/assets/location.jpeg", visible: false) do
+        page.find('#image-upload-dropzone')
+      end
+      sleep 1
+      
+      expect(page.current_path).to eq(photo_path(Photo.last.id))
+      expect(page).to have_text("Photo uploaded!")
+      expect(page).to have_css("img[src*='#{url_for(Photo.last.image)}']")
+    end
+
+    it "should display error with a photo that has no location" do
+      page.attach_file("#{Rails.root}/spec/support/assets/no-location.jpg", visible: false) do
+        page.find('#image-upload-dropzone')
+      end
+      sleep 1
+
+      expect(page.current_path).to eq(root_path)
+      expect(page).to have_text("Sorry, we couldn't determine the location of that photo.")
     end
   end
 
