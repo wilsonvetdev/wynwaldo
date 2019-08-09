@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
+gem 'react_on_rails'
 gem 'mini_magick'
 gem 'exifr'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
