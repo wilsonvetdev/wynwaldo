@@ -1,5 +1,6 @@
 class Photo < ApplicationRecord
   has_one_attached :image
+  belongs_to :user
 
   before_create :pull_coords_from_image_metadata
 
