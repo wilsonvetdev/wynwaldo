@@ -1,12 +1,16 @@
 require "rails_helper"
 
 RSpec.describe "viewing photos", type: :system, js: true do  
+  let(:user){ User.create(email: "some@guy.com", password: "password") }
   before do
+    sign_in(user)
     visit root_path
     page.attach_file("#{Rails.root}/spec/support/assets/good/location.jpeg", visible: false) do
       page.find('#image-upload-dropzone').click
     end
     sleep 1
+    visit root_path
+    sign_out(user)
     visit root_path
   end
 
