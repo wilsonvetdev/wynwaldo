@@ -1,4 +1,10 @@
 img {
-  max-height: 50px;
-  max-width: 50px; 
+  max-height: 100px;
+  max-width: 100px; 
+  margin: 0px;
+  
+}
+
+.dark {
+  height: 100vh;
 }

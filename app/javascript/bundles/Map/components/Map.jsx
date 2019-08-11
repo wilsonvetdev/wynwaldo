@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import SprayCan from './images/spray-can-2.png';
+import SprayCan from './images/paintcan.svg';
 
 class Map extends Component {
   componentDidMount() {
@@ -7,8 +7,8 @@ class Map extends Component {
     mapboxgl.accessToken = token
     const mapOptions = {
       container: this.mapContainer,
-      style: `mapbox://styles/mapbox/streets-v9`,
-      zoom: 12,
+      style: `mapbox://styles/cuellarn/cjz7h4yaq24bv1cmxah88k89k`, 
+      zoom: 50,
       center: coordinates
     }
     const geolocationOptions = {
@@ -38,18 +38,18 @@ class Map extends Component {
       new mapboxgl.GeolocateControl({ positionOptions: geolocationOptions, trackUserLocation: true })
     )
     this.map.on('load', () => {
-      this.map.loadImage(SprayCan, (err, img) => !err && this.map.addImage('spray-can', img))
+      this.map.loadImage(SprayCan, (err, img) => !err && this.map.addImage('paintcan', img))
       this.map.addSource('photos',
       {
         type: 'geojson',
         data: '/map.json',
         cluster: true,
-        clusterMaxZoom: 14,
+        clusterMaxZoom: 50,
         clusterRadius: 50,
       })
       this.map.addLayer({
         id: 'clusters',
-        type: 'circle',
+        type: 'none',
         source: 'photos',
         filter: ['has', 'point_count'],
         paint: {
@@ -90,8 +90,8 @@ class Map extends Component {
         source: 'photos',
 
         layout: {
-          'icon-image': 'alcohol-shop-15',
-          'icon-size': 1.5,
+          'icon-image': 'paintcan',
+          'icon-size': 0.1,
           'icon-allow-overlap': true,
         }
       });
@@ -114,8 +114,9 @@ class Map extends Component {
   render(){
     const styles = {
       width:            '100%',
-      height:           '500px',
-      backgroundColor:  'azure'
+      height:           '100vh',
+      backgroundColor:  'azure',
+      margin:            '0'
     }
     return <div style={styles} ref={el => this.mapContainer = el}></div>
   }
