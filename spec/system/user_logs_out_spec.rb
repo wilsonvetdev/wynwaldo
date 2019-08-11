@@ -6,7 +6,8 @@ RSpec.describe "logging out", type: :system, js: true do
     sign_in(user)
 
     visit root_path
-    click_button "Log Out"
+    find(".dropdown").click
+    click_link "Log Out"
 
     expect(page.current_path).to eq(root_path)
     expect(page).to have_text("Logged out successfully.")
