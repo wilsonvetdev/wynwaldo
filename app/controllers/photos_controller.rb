@@ -1,4 +1,13 @@
 class PhotosController < ApplicationController
+  before_action :set_photo, only: [:destroy]
+
+  # def correct_user
+  #   @photo = Photo.find_by(id: params[:id])
+  #   unless current_user?(@post.user)
+  #     redirect_to user_path(current_user)
+  #   end
+  # end
+
   def index
     @photo = Photo.new
     @photos = Photo.with_attached_image.includes(:user)
@@ -21,7 +30,22 @@ class PhotosController < ApplicationController
     end
   end
 
+  def destroy
+    if current_user == @photo.user
+    @photo.destroy
+    redirect_to root_path,
+      notice: 'Photo was successfully deleted.'
+    else
+      redirect_to root_path,
+      alert: 'This is not your photo.'
+    end
+  end
+
   private
+  def set_photo
+    @photo = current_user.photos.find(params[:id])
+  end
+
   def photo_params
     params.require(:photo).permit(:image)
   end
