@@ -106,7 +106,11 @@ class Map extends Component {
     new mapboxgl.Popup()
       .setLngLat(coordinates)
       .setHTML(`
-        <div className="popup"><img className=pop-up-image" src=${properties.image} /></div>
+        <div className="popup">
+        <a href="/photos/${properties.id}">
+        <img className=pop-up-image" src=${properties.image} />
+        </a>
+        </div>
       `)
       .addTo(map)
   }
