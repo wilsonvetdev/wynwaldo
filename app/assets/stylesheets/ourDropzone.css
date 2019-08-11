@@ -6,6 +6,8 @@
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
+  font-family: 'Montserrat', sans-serif;
+  opacity: .7;
 }
 
 .dropzone.dz-clickable * {

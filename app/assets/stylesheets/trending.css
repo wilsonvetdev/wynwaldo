@@ -1,0 +1,32 @@
+h1.title_h1 {
+  text-align:   center;
+}
+
+ul.tr_columns {
+  list-style:            none;
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(365px, 1fr));
+  justify-content:       center; 
+  padding:               0; 
+  width:                 100vw;
+  grid-row-gap:          20px;
+}  
+
+ul.tr_columns img {
+  width:  300%;
+  height: 275px;
+  border: solid 1px gray;
+}
+
+li.tr_column img:hover {
+  transform: scale(1.07);
+}
+
+.tr_column {
+  width: 30%;
+}
+
+li.tr_column a img {
+  display:         grid;
+  justify-content: center;
+}

@@ -1,0 +1,12 @@
+#detail_wrapper {
+  display: grid;
+}
+
+#longlat {
+text-align: center;
+}
+
+#detail_image {
+  display: grid;
+  place-items: center;
+}
