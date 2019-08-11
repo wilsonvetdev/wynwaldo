@@ -1,6 +1,8 @@
 <h1> Wilson = Winston = Waldo </h1>
 
-<%= render 'form', photo: @photo %>
+<% if user_signed_in? %>
+  <%= render 'form', photo: @photo %>
+<% end %>
 
 <ul>
   <% @photos.each do |photo| %>

@@ -1,6 +1,11 @@
 require "rails_helper"
 
 RSpec.describe "uploading photo", type: :system, js: true do
+  let(:user){ User.create(email: "some@guy.com", password: "password") }
+  before do
+    sign_in(user)
+  end
+
   context "when photo has location" do
     before do
       visit root_path
@@ -23,8 +28,8 @@ RSpec.describe "uploading photo", type: :system, js: true do
     end
 
     it "should have the lat and long on the show page" do
-      expect(page).to have_text("Latitude: 25.803819444444443") # may have to move this to controller once map is here
-      expect(page).to have_text("Longitude: 80.20327777777777") # may have to move this to controller once map is here
+      expect(page).to have_text("Latitude: #{Photo.last.latitude}") # may have to move this to controller once map is here
+      expect(page).to have_text("Longitude: #{Photo.last.longitude}") # may have to move this to controller once map is here
     end
   end
 
