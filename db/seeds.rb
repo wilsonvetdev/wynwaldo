@@ -6,10 +6,15 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+User.destroy_all
 Photo.destroy_all
 
+user = User.create!(email: "some@guy.com", password: "password")
+
+puts "#{User.count} users in the system..."
+
 Dir.each_child(Rails.root.join('spec', 'support', 'assets', 'good')).each do |filename|
-  photo = Photo.new
+  photo = user.photos.new
   photo.image.attach(io: File.open(Rails.root.join('spec', 'support', 'assets', 'good', filename)), filename: filename)
   photo.save
   photo.image.blob.analyze

@@ -9,7 +9,7 @@ class PhotosController < ApplicationController
   end
 
   def create
-    photo = Photo.create(photo_params)
+    photo = current_user.photos.create(photo_params)
     photo.image.blob.analyze
     if photo.image.blob.metadata["latitude"] && photo.image.blob.metadata["longitude"]
       flash[:notice] = "Photo uploaded!"
