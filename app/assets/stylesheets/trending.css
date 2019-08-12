@@ -8,7 +8,6 @@ ul.tr_columns {
   grid-template-columns: repeat(auto-fill, minmax(365px, 1fr));
   justify-content:       center; 
   padding:               0; 
-  width:                 100vw;
   grid-row-gap:          20px;
 }  
 
@@ -34,3 +33,11 @@ li.tr_column a img {
   display:         grid;
   justify-content: center;
 }
+
+.index-wrapper-grid {
+  display: grid;
+  grid-template-columns: 2fr 1.75fr;
+}
+
+
+
