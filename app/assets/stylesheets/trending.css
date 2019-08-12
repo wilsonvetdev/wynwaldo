@@ -18,6 +18,10 @@ ul.tr_columns img {
   border: solid 1px gray;
 }
 
+li.tr_column img {
+  transition: all 0.3s;
+}
+
 li.tr_column img:hover {
   transform: scale(1.07);
 }
