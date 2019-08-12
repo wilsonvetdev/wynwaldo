@@ -24,17 +24,12 @@ class PhotosController < ApplicationController
   end
 
   def destroy
-    if current_user == @photo.user
     @photo.destroy
-    redirect_to root_path,
-      notice: 'Photo was successfully deleted.'
-    else
-      redirect_to root_path,
-      alert: 'This is not your photo.'
-    end
+    redirect_to root_path, notice: 'Photo was successfully deleted.'
   end
 
   private
+
   def set_photo
     @photo = current_user.photos.find(params[:id])
   end
