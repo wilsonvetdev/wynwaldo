@@ -1,4 +1,6 @@
 class PhotosController < ApplicationController
+  before_action :set_photo, only: [:destroy]
+
   def index
     @photo = Photo.new
     @photos = Photo.with_attached_image.includes(:user)
@@ -21,7 +23,17 @@ class PhotosController < ApplicationController
     end
   end
 
+  def destroy
+    @photo.destroy
+    redirect_to root_path, notice: 'Photo was successfully deleted.'
+  end
+
   private
+
+  def set_photo
+    @photo = current_user.photos.find(params[:id])
+  end
+
   def photo_params
     params.require(:photo).permit(:image)
   end

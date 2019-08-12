@@ -1,0 +1,12 @@
+<ul>
+  <% @photos.each do |photo| %>
+    <li>
+      <%= link_to photo_path(photo.id) do  %>
+        <%= image_tag photo.image if photo.image.attached? %>
+      <% end %>
+    </li>
+    <% if current_user == photo.user %>
+      <%= button_to 'Delete', photo, method: :delete, data: { confirm: 'Are you sure?' } %> 
+    <% end %> 
+  <% end %>
+</ul>
