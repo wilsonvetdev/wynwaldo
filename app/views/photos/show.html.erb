@@ -1,12 +1,23 @@
 <h1>Wynwood Wall Pictures</h1>
 
-<%= image_tag @photo.image, height: '200' %>
+<div id="detail_wrapper">
+  <div id="detail_image">
+    <%= image_tag @photo.image, height: '450'%>
+  </div>
+  <div id="longlat">
+    <p>
+      Latitude: <%= @photo.image.blob.metadata["latitude"] %>
+    </p>
+    <p>
+      Longitude: <%= @photo.image.blob.metadata["longitude"] %>
+    </p>
+    <p>
+      112 visits
+    </p>
+    <p>
+      Posted by: some@guy.com
+    </p>
+  </div>
 
-<p>
-  Latitude: <%= @photo.image.blob.metadata["latitude"] %>
-</p>
-<p>
-  Longitude: <%= @photo.image.blob.metadata["longitude"] %>
-</p>
-
-<%= link_to "Back", photos_url %>
+  <%= link_to "Back", photos_url %>
+</div>

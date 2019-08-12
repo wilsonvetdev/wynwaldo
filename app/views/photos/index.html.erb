@@ -1,15 +1,25 @@
-<h1> Wilson = Winston = Waldo </h1>
+<main class="tr_wrapper">
+  <h1 class=title_h1> What's Trending Near You</h1>
 
-<% if user_signed_in? %>
-  <%= render 'form', photo: @photo %>
-<% end %>
+  <% if user_signed_in? %>
+    <%= render 'form', photo: @photo %>
+  <% end %>
 
-<ul>
-  <% @photos.each do |photo| %>
-    <li>
-      <%= link_to photo_path(photo.id) do  %>
-        <%= image_tag photo.image if photo.image.attached? %>
-      <% end %>
-    </li>
-  <% end %> 
-</ul>
+  <section class="tr_section">
+    <ul class="tr_columns">
+      <% @photos.each do |photo| %>
+        <li class="tr_column">
+          <%= link_to photo_path(photo.id) do  %>
+            <%= image_tag photo.image if photo.image.attached? %>
+          <% end %>
+          <p>
+            112 visits
+          </p>
+          <p>
+            Posted by: some@guy.com
+          </p>
+        </li>
+      <% end %> 
+    </ul>
+  </section>
+</main>
