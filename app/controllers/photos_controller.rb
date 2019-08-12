@@ -1,7 +1,7 @@
 class PhotosController < ApplicationController
   def index
     @photo = Photo.new
-    @photos = Photo.with_attached_image
+    @photos = Photo.with_attached_image.includes(:user)
   end
 
   def show

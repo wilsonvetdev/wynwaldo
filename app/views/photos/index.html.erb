@@ -1,5 +1,5 @@
 <main class="tr_wrapper">
-  <h1 class=title_h1> What's Trending Near You</h1>
+  <h1 class=title_h1>What's Trending Near You</h1>
 
   <% if user_signed_in? %>
     <%= render 'form', photo: @photo %>
@@ -16,7 +16,7 @@
             112 visits
           </p>
           <p>
-            Posted by: some@guy.com
+            Posted by: <%= photo.user.email %>
           </p>
         </li>
       <% end %> 
