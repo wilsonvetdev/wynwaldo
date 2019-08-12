@@ -6,10 +6,7 @@
       <% end %>
     </li>
     <% if current_user == photo.user %>
-      <%= button_to 'Delete', 
-             photo_path(photo.id), 
-                         method: :delete, 
-                         data: { confirm: 'Are you sure?' } %> 
+      <%= button_to 'Delete', photo, method: :delete, data: { confirm: 'Are you sure?' } %> 
     <% end %> 
   <% end %>
 </ul>
