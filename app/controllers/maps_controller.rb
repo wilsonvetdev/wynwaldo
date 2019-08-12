@@ -17,6 +17,7 @@ class MapsController < ApplicationController
                 coordinates: [photo.longitude, photo.latitude]
               },
               properties: {
+                id: photo.id,
                 image: url_for(photo.image)
               }
             }
