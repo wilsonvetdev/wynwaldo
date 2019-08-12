@@ -7,8 +7,8 @@ class Map extends Component {
     mapboxgl.accessToken = token
     const mapOptions = {
       container: this.mapContainer,
-      style: `mapbox://styles/cuellarn/cjz7h4yaq24bv1cmxah88k89k`, 
-      zoom: 50,
+      style: `mapbox://styles/cuellarn/cjz7h4yaq24bv1cmxah88k89k`,
+      zoom: 13,
       center: coordinates
     }
     const geolocationOptions = {
@@ -44,34 +44,25 @@ class Map extends Component {
         type: 'geojson',
         data: '/map.json',
         cluster: true,
-        clusterMaxZoom: 50,
+        clusterMaxZoom: 24,
         clusterRadius: 50,
       })
       this.map.addLayer({
+        id: 'photos',
+        type: 'symbol',
+        source: 'photos',
+        layout: {
+          'icon-image': 'paintcan',
+          'icon-size': 0.1,
+          'icon-allow-overlap': true,
+        }
+      });
+      this.map.addLayer({
         id: 'clusters',
-        type: 'none',
+        type: 'circle',
         source: 'photos',
         filter: ['has', 'point_count'],
-        paint: {
-          "circle-color": [
-            "step",
-            ["get", "point_count"],
-            "#51bbd6",
-            100,
-            "#f1f075",
-            750,
-            "#f28cb1"
-          ],
-          "circle-radius": [
-            "step",
-            ["get", "point_count"],
-            20,
-            100,
-            30,
-            750,
-            40
-          ]
-        }
+        paint: { "circle-color": ["rgba", 0,0,0,0] }
       })
       this.map.addLayer({
         id: "cluster-count",
@@ -79,20 +70,9 @@ class Map extends Component {
         source: "photos",
         filter: ["has", "point_count"],
         layout: {
-        "text-field": "{point_count_abbreviated}",
-        "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
-        "text-size": 12
-        }
-        });
-      this.map.addLayer({
-        id: 'photos',
-        type: 'symbol',
-        source: 'photos',
-
-        layout: {
-          'icon-image': 'paintcan',
-          'icon-size': 0.1,
-          'icon-allow-overlap': true,
+          "text-field": "{point_count_abbreviated}",
+          "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+          "text-size": 12
         }
       });
       this.map.on('click', 'photos', this.handleMarkerClick)
@@ -102,17 +82,23 @@ class Map extends Component {
   handleMarkerClick = e => {
     const map = this.map;
     const { properties, geometry = {} } = e.features[0]
-    const coordinates = [...geometry.coordinates]
-    new mapboxgl.Popup()
-      .setLngLat(coordinates)
-      .setHTML(`
-        <div className="popup">
-        <a href="/photos/${properties.id}">
-        <img className=pop-up-image" src=${properties.image} />
-        </a>
-        </div>
-      `)
-      .addTo(map)
+    if (properties.cluster){
+      const zoom = map.getZoom() + 1
+      const center = [e.lngLat.lng, e.lngLat.lat]
+      map.flyTo({ center, zoom })
+    }else{
+      const coordinates = [...geometry.coordinates]
+      new mapboxgl.Popup()
+        .setLngLat(coordinates)
+        .setHTML(`
+          <div class="popup">
+            <a href="/photos/${properties.id}">
+              <img src=${properties.image} />
+            </a>
+          </div>
+        `)
+        .addTo(map)
+    }
   }
 
   render(){
@@ -120,7 +106,7 @@ class Map extends Component {
       width:            '100%',
       height:           '100vh',
       backgroundColor:  'azure',
-      margin:            '0'
+      margin:           '0'
     }
     return <div style={styles} ref={el => this.mapContainer = el}></div>
   }
