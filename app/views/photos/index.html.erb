@@ -1,8 +1,12 @@
 <main class="tr_wrapper">
   <h1 class=title_h1> What's Trending Near You</h1>
+<<<<<<< HEAD
   <% if user_signed_in? %>
     <%= render 'form', photo: @photo %>
   <% end %>
+=======
+  <%= render 'form', photo: @photo %>
+>>>>>>> minor syntax update
   <section class="tr_section">
     <ul class="tr_columns">
       <% @photos.each do |photo| %>
