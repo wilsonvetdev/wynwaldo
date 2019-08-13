@@ -16,20 +16,21 @@ class Map extends Component {
       maximumAge        : 30000,
       timeout           : 27000
     }
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        // success callback
-        (position) => {
-          mapOptions.center = [position.coords.longitude, position.coords.latitude]
-          this.createMap(mapOptions, geolocationOptions)
-        },
-        // failure callback
-        () => this.createMap(mapOptions, geolocationOptions),
-        // options
-        geolocationOptions
-      );
-    }
-    else this.createMap(mapOptions, geolocationOptions)
+    this.createMap(mapOptions, geolocationOptions)
+  }
+
+  flyTo = photo => {
+    this.map.flyTo({center: photo.coordinates, zoom: 18})
+    this.popup && this.popup.remove()
+    this.popup = new mapboxgl.Popup()
+      .setLngLat(photo.coordinates)
+      .setHTML(`
+        <div class="popup">
+          <a href="${photo.location}">
+            <img src=${photo.image} />
+          </a>
+        </div>
+      `).addTo(this.map)
   }
 
   createMap = (mapOptions, geolocationOptions) => {
@@ -39,6 +40,21 @@ class Map extends Component {
     )
     this.map.on('load', () => {
       this.map.loadImage(SprayCan, (err, img) => !err && this.map.addImage('paintcan', img))
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          // success callback
+          position => {
+            console.log({position})
+            this.map.flyTo({
+              center: [position.coords.longitude, position.coords.latitude]
+            })
+          },
+          // failure callback
+          () => console.log("Couldn't get user location"),
+          // options
+          geolocationOptions
+        );
+      }
       this.map.addSource('photos',
       {
         type: 'geojson',
@@ -88,7 +104,8 @@ class Map extends Component {
       map.flyTo({ center, zoom })
     }else{
       const coordinates = [...geometry.coordinates]
-      new mapboxgl.Popup()
+      this.popup && this.popup.remove()
+      this.popup = new mapboxgl.Popup()
         .setLngLat(coordinates)
         .setHTML(`
           <div class="popup">
@@ -108,7 +125,41 @@ class Map extends Component {
       backgroundColor:  'azure',
       margin:           '0'
     }
-    return <div style={styles} ref={el => this.mapContainer = el}></div>
+    const { photos } = this.props
+    return(
+      <React.Fragment>
+        <section class="tr_section">
+          <ul class="tr_columns">
+            {
+              photos.map(photo => (
+                <li class="tr_column">
+                  <div>
+                    <a href={photo.location}>
+                      <img src={photo.image}/>
+                    </a>
+                    <p>
+                      112 visits
+                    </p>
+                    <p>
+                      Posted by: {photo.user.email}
+                    </p>
+                  </div>
+                  <div>
+                    <button onClick={() => this.flyTo(photo)}>
+                      Show on Map
+                    </button>
+                    <a href={photo.location}>Details</a>
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+        <div class="map-container fixed right">
+          <div style={styles} ref={el => this.mapContainer = el}></div>
+        </div>
+      </React.Fragment>
+    )
   }
 
   componentWillUnmount() {
