@@ -138,7 +138,7 @@ class Map extends Component {
                       <img src={photo.image}/>
                     </a>
                     <p>
-                      112 visits
+                      {photo.visits} visits
                     </p>
                     <p>
                       Posted by: {photo.user.email}

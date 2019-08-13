@@ -6,7 +6,7 @@ class MapsController < ApplicationController
         @coordinates = [photo.longitude, photo.latitude]
       end
       format.json do
-        @photos = Photo.all
+        @photos = Photo.all.includes(:user, :visits)
         render json: {
           type: "FeatureCollection",
           features: @photos.map do |photo|
