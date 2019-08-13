@@ -1,0 +1,24 @@
+html {
+  scroll-behavior: smooth;
+}
+
+#scrollButton {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+#scrollButton:hover {
+  background-color: rgb(226, 226, 226)
+} 
+
+#scrollButton:focus {
+  outline: none !important;
+}
