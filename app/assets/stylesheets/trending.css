@@ -8,7 +8,6 @@ ul.tr_columns {
   grid-template-columns: repeat(auto-fill, minmax(365px, 1fr));
   justify-content:       center; 
   padding:               0; 
-  width:                 100vw;
   grid-row-gap:          20px;
 }  
 
@@ -34,3 +33,23 @@ li.tr_column a img {
   display:         grid;
   justify-content: center;
 }
+
+.tr_section {
+  width: 60vw;
+  float: left;
+}
+
+.map-container {
+  width: 40vw;
+  height: 300px;
+}
+
+.map-container.fixed {
+  position: fixed;
+}
+
+.map-container.right {
+  right: 0;
+}
+
+

@@ -4,6 +4,8 @@ class PhotosController < ApplicationController
   def index
     @photo = Photo.new
     @photos = Photo.with_attached_image.includes(:user)
+    photo = Photo.last
+    @coordinates = [photo.longitude, photo.latitude]
   end
 
   def show

@@ -1,4 +1,5 @@
 class Photo < ApplicationRecord
+  include Rails.application.routes.url_helpers
   has_one_attached :image
   belongs_to :user
 
@@ -9,5 +10,16 @@ class Photo < ApplicationRecord
       self.latitude   = image.blob.metadata["latitude"]
       self.longitude  = image.blob.metadata["longitude"]
     end
+  end
+
+  def as_json(options={})
+    {
+      location: "/photos/#{id}",
+      image: url_for(image),
+      coordinates: [longitude, latitude],
+      user: {
+        email: user.email
+      }
+    }
   end
 end
