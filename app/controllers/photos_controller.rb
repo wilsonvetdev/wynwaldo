@@ -35,6 +35,10 @@ class PhotosController < ApplicationController
     redirect_to root_path, notice: 'Photo was successfully deleted.'
   end
 
+  def myphotos
+    @photos = current_user.photos
+  end
+
   private
 
   def set_photo

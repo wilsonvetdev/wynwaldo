@@ -2,7 +2,7 @@ h1.title_h1 {
   text-align:   center;
 }
 
-ul.tr_columns {
+ul.tr-list {
   list-style:            none;
   display:               grid;
   grid-template-columns: repeat(auto-fill, minmax(365px, 1fr));
@@ -11,25 +11,25 @@ ul.tr_columns {
   grid-row-gap:          20px;
 }  
 
-ul.tr_columns img {
+ul.tr-list img {
   width:  300%;
   height: 275px;
   border: solid 1px gray;
 }
 
-li.tr_column img {
+li.tr-list-item img {
   transition: all 0.3s;
 }
 
-li.tr_column img:hover {
-  transform: scale(1.07);
+li.tr-list-item img:hover {
+  transform: scale(1.03);
 }
 
-.tr_column {
+.tr-list-item {
   width: 30%;
 }
 
-li.tr_column a img {
+li.tr-list-item a img {
   display:         grid;
   justify-content: center;
 }
