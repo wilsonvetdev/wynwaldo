@@ -2,6 +2,7 @@ class Photo < ApplicationRecord
   include Rails.application.routes.url_helpers
   has_one_attached :image
   belongs_to :user
+  has_many :visits, dependent: :destroy
 
   before_create :pull_coords_from_image_metadata
 
@@ -19,7 +20,8 @@ class Photo < ApplicationRecord
       coordinates: [longitude, latitude],
       user: {
         email: user.email
-      }
+      },
+      visits: visits.count
     }
   end
 end

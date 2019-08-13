@@ -12,7 +12,7 @@
       Longitude: <%= @photo.image.blob.metadata["longitude"] %>
     </p>
     <p>
-      112 visits
+      <%= @photo.visits.count %> visits
     </p>
     <p>
       Posted by: some@guy.com

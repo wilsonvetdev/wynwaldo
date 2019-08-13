@@ -3,13 +3,18 @@ class PhotosController < ApplicationController
 
   def index
     @photo = Photo.new
-    @photos = Photo.with_attached_image.includes(:user)
+    @photos = Photo.with_attached_image.includes(:user, :visits)
     photo = Photo.last
     @coordinates = [photo.longitude, photo.latitude]
   end
 
   def show
     @photo = Photo.find_by_id(params[:id])
+    if user_signed_in?
+      Visit.create(user: current_user, photo: @photo)
+    else
+      Visit.create(photo: @photo)
+    end
   end
 
   def create
