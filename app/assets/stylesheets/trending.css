@@ -1,4 +1,4 @@
-h1.title_h1 {
+h1.title-h1 {
   text-align:   center;
 }
 
@@ -34,7 +34,7 @@ li.tr-list-item a img {
   justify-content: center;
 }
 
-.tr_section {
+.tr-section {
   width: 60vw;
   float: left;
 }
@@ -51,5 +51,13 @@ li.tr-list-item a img {
 .map-container.right {
   right: 0;
 }
+/* 
+@media only screen and (max-width: 600px) {
+  .tr-section {
+    width: 100%;
+  }
 
-
+  .map-container {
+    display: none;
+  }
+} */

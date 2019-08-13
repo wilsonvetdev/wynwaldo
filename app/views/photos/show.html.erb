@@ -1,7 +1,16 @@
+<%= react_component 'Map',
+    props:  {
+              token:        ENV['MAPBOX_TOKEN'],
+              coordinates:  @coordinates,
+              navigation: true,
+              photoList: false
+            } %>
+
+
 <h1>Wynwood Wall Pictures</h1>
 
-<div id="detail_wrapper">
-  <div id="detail_image">
+<div id="detail-wrapper">
+  <div id="detail-image">
     <%= image_tag @photo.image, height: '450'%>
   </div>
   <div id="longlat">

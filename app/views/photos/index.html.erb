@@ -1,10 +1,12 @@
-<main class="tr_wrapper">
-  <h1 class="title_h1">What's Trending Near You</h1>
+<main class="tr-wrapper">
+  <h1 class="title-h1">What's Trending Near You</h1>
 
   <%= react_component 'Map',
       props:  {
                 token:        ENV['MAPBOX_TOKEN'],
                 coordinates:  @coordinates,
                 photos:       @photos,
+                navigation: false,
+                photoList: true
               } %>
 </main>

@@ -2,13 +2,16 @@ import React, { Component } from 'react'
 import SprayCan from './images/paintcan.svg';
 
 class Map extends Component {
+    state = { currentLoc: [] }
+
   componentDidMount() {
+    this.setState({ currentLoc: coordinates })
     const { token, coordinates } = this.props;
     mapboxgl.accessToken = token
     const mapOptions = {
       container: this.mapContainer,
       style: `mapbox://styles/cuellarn/cjz7h4yaq24bv1cmxah88k89k`,
-      zoom: 13,
+      zoom: 16,
       center: coordinates
     }
     const geolocationOptions = {
@@ -16,6 +19,7 @@ class Map extends Component {
       maximumAge        : 30000,
       timeout           : 27000
     }
+    // this.setState({ currentLoc: coordinates })
     this.createMap(mapOptions, geolocationOptions)
   }
 
@@ -38,6 +42,18 @@ class Map extends Component {
     this.map.addControl(
       new mapboxgl.GeolocateControl({ positionOptions: geolocationOptions, trackUserLocation: true })
     )
+    if(this.props.navigation) {
+      this.directions = new MapboxDirections({
+          accessToken: mapboxgl.accessToken,
+          profile: 'mapbox/walking',
+          interactive: false,
+          controls: {
+          profileSwitcher: false
+        }
+      })
+      this.map.addControl(this.directions, 'top-left')      
+    }
+
     this.map.on('load', () => {
       this.map.loadImage(SprayCan, (err, img) => !err && this.map.addImage('paintcan', img))
       if ("geolocation" in navigator) {
@@ -48,6 +64,10 @@ class Map extends Component {
             this.map.flyTo({
               center: [position.coords.longitude, position.coords.latitude]
             })
+            if(this.props.navigation) {
+              this.directions.setOrigin([position.coords.longitude, position.coords.latitude])
+              this.directions.setDestination(this.props.coordinates)
+            }
           },
           // failure callback
           () => console.log("Couldn't get user location"),
@@ -92,7 +112,7 @@ class Map extends Component {
         }
       });
       this.map.on('click', 'photos', this.handleMarkerClick)
-    })
+    }) // end onload
   }
 
   handleMarkerClick = e => {
@@ -125,14 +145,15 @@ class Map extends Component {
       backgroundColor:  'azure',
       margin:           '0'
     }
-    const { photos } = this.props
+    const { photos, photoList } = this.props
     return(
       <React.Fragment>
-        <section class="tr_section">
-          <ul class="tr_columns">
+        <section className="tr-section">
+          <ul className="tr-list">
             {
+              photoList &&
               photos.map(photo => (
-                <li class="tr_column">
+                <li className="tr-list-item" key={photo.id}>
                   <div>
                     <a href={photo.location}>
                       <img src={photo.image}/>
@@ -155,7 +176,7 @@ class Map extends Component {
             }
           </ul>
         </section>
-        <div class="map-container fixed right">
+        <div className="map-container fixed right">
           <div style={styles} ref={el => this.mapContainer = el}></div>
         </div>
       </React.Fragment>

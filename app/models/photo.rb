@@ -15,6 +15,7 @@ class Photo < ApplicationRecord
 
   def as_json(options={})
     {
+      id: id,
       location: "/photos/#{id}",
       image: url_for(image),
       coordinates: [longitude, latitude],

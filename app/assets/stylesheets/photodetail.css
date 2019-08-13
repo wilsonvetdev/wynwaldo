@@ -1,4 +1,4 @@
-#detail_wrapper {
+#detail-wrapper {
   display: grid;
 }
 
@@ -6,7 +6,7 @@
   text-align: center;
 }
 
-#detail_image {
+#detail-image {
   display: grid;
   place-items: center;
 }

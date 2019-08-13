@@ -10,6 +10,7 @@ class PhotosController < ApplicationController
 
   def show
     @photo = Photo.find_by_id(params[:id])
+    @coordinates = [@photo.longitude, @photo.latitude]
     if user_signed_in?
       Visit.create(user: current_user, photo: @photo)
     else
