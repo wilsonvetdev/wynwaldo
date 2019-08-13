@@ -34,10 +34,22 @@ li.tr_column a img {
   justify-content: center;
 }
 
-.index-wrapper-grid {
-  display: grid;
-  grid-template-columns: 2fr 1.75fr;
+.tr_section {
+  width: 60vw;
+  float: left;
 }
 
+.map-container {
+  width: 40vw;
+  height: 300px;
+}
+
+.map-container.fixed {
+  position: fixed;
+}
+
+.map-container.right {
+  right: 0;
+}
 
 
