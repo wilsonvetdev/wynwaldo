@@ -2,7 +2,7 @@ html {
   scroll-behavior: smooth;
 }
 
-#myBtn {
+#scrollButton {
   display: none;
   position: fixed;
   bottom: 20px;
@@ -15,6 +15,10 @@ html {
   font-size: 1rem;
 }
 
-#myBtn:hover {
+#scrollButton:hover {
   background-color: rgb(226, 226, 226)
 } 
+
+#scrollButton:focus {
+  outline: none !important;
+}
