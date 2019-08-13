@@ -33,5 +33,14 @@
       </ul>
     </label>
     <%= yield %>
+    <button id="myBtn" title="Go to top">Top</button>
+    <script>
+      document.getElementById('myBtn').addEventListener('click', topFunction)
+
+      function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      }
+    </script>
   </body>
 </html>
