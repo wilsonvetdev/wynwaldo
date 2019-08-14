@@ -16,6 +16,7 @@
   <body>
     <%= notice %>
     <%= alert %>
+    <nav>
     <label class="dropdown">
       <div class="dd-button">
         Main Menu
@@ -32,8 +33,17 @@
           <li><%= link_to "Map View", map_path %></li>                 
       </ul>
     </label>
+      <% if user_signed_in? %>
+        <button id="uploadButton"><span class="emoji">📎</span></button>
+      <ul>        
+        <%= render 'form', photo: @photo %>
+      </ul>
+      <% end %>
     <%= yield %>
+    </nav>
+
     <button id="scrollButton">Top</button>
+
     <script>
       document.getElementById('scrollButton').addEventListener('click', topFunction)
 
@@ -51,6 +61,17 @@
       function topFunction() {
         document.body.scrollTop = 0; // For Safari
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      }
+
+      document.getElementById('uploadButton').addEventListener('click', showDropzone)
+
+      function showDropzone() {
+        let x = document.getElementById("image-upload-dropzone");
+        if (x.style.display === "block") {
+          x.style.display = "none";
+        } else {
+          x.style.display = "block";
+        }
       }
     </script>
   </body>

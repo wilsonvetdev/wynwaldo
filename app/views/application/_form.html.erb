@@ -12,6 +12,7 @@
           paramName: 'photo[image]',
           uploadMultiple: false,
           acceptedFiles: 'image/jpeg',
+          dictDefaultMessage: "upload images here",
           init: function(){
             this.on('success', function(_file, response){
               Turbolinks.visit(response.location)
