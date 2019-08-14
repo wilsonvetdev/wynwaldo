@@ -5,7 +5,11 @@ class PhotosController < ApplicationController
     @photo = Photo.new
     @photos = Photo.with_attached_image.includes(:user, :visits)
     photo = Photo.last
-    @coordinates = [photo.longitude, photo.latitude]
+    if photo 
+      @coordinates = [photo.longitude, photo.latitude]
+    else
+      @coordinates = [-80.199145, 25.800791]
+    end
   end
 
   def show
