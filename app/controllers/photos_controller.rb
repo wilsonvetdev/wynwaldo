@@ -36,12 +36,17 @@ class PhotosController < ApplicationController
   end
 
   def myphotos
-    @photos = current_user.photos
+    if user_signed_in?
+      @photos = current_user.photos
+    else
+      redirect_to root_path
+    end
   end
 
   private
 
   def set_photo
+
     @photo = current_user.photos.find(params[:id])
   end
 
