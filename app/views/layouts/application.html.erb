@@ -17,30 +17,28 @@
     <%= notice %>
     <%= alert %>
     <nav>
-    <label class="dropdown">
-      <div class="dd-button">
-        Main Menu
-      </div>
-      <input type="checkbox" class="dd-input" id="test">
-      <ul class="dd-menu">
-        <% if current_user %>
-          <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
-        <% else %>
-          <li><%= link_to 'Sign Up', new_user_registration_path %></li>
-          <li><%= link_to 'Log In', new_user_session_path %></li>
-        <% end %>              
-          <li><%= link_to "Home", root_path %></li>
-          <li><%= link_to "Map View", map_path %></li>                 
-      </ul>
-    </label>
+      <label class="dropdown">
+        <div class="dd-button">
+          Main Menu
+        </div>
+        <input type="checkbox" class="dd-input" id="test">
+        <ul class="dd-menu">
+          <% if current_user %>
+            <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+            <li><%= link_to 'Log In', new_user_session_path %></li>
+          <% end %>
+            <li><%= link_to "Home", root_path %></li>
+            <li><%= link_to "Map View", map_path %></li>
+        </ul>
+      </label>
       <% if user_signed_in? %>
         <button id="uploadButton"><span class="emoji">📎</span></button>
-      <ul>        
         <%= render 'form', photo: @photo %>
-      </ul>
       <% end %>
-    <%= yield %>
     </nav>
+    <%= yield %>
 
     <button id="scrollButton">Top</button>
 
