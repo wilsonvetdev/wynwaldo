@@ -1,4 +1,5 @@
 .dropzone {
+  display: none;
   background: white;
   border-radius: 5px;
   border: 2px dashed rgb(0, 135, 247);
@@ -11,4 +12,27 @@
 
 .dropzone.dz-clickable * {
   cursor: pointer !important;
+}
+
+#uploadButton {
+  position: relative;
+  border: 1px solid gray;
+  border-radius: 4px;
+  background-color: #ffffff;
+  cursor: pointer;
+  max-height: 41px;
+  padding: 7px;
+}
+
+#uploadButton:hover {
+  background-color: #eeeeee;
+}
+
+#uploadButton:focus {
+  outline: none !important;
+}
+
+span.emoji {
+  font-size: 20px;
+  vertical-align: middle;
 }
