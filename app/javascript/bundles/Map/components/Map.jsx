@@ -169,7 +169,7 @@ class Map extends Component {
                     </p>
                   </div>
                   <div>
-                    <button onClick={() => this.flyTo(photo)}>
+                    <button className="show-btn" onClick={() => this.flyTo(photo)}>
                       Show on Map
                     </button>
                     <a href={photo.location}>Details</a>
@@ -179,7 +179,7 @@ class Map extends Component {
             }
           </ul>
         </section>
-        <div className="map-container fixed right">
+        <div className="map-container">
           <div style={styles} ref={el => this.mapContainer = el}></div>
         </div>
       </React.Fragment>

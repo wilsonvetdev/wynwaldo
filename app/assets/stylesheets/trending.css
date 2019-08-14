@@ -5,7 +5,7 @@ h1.title-h1 {
 ul.tr-list {
   list-style:            none;
   display:               grid;
-  grid-template-columns: repeat(auto-fill, minmax(365px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   justify-content:       center; 
   padding:               0; 
   grid-row-gap:          20px;
@@ -35,29 +35,27 @@ li.tr-list-item a img {
 }
 
 .tr-section {
-  width: 60vw;
+  width: 50vw;
   float: left;
 }
 
-.map-container {
-  width: 40vw;
+.tr-wrapper .map-container {
   height: 300px;
-}
-
-.map-container.fixed {
   position: fixed;
+  right: 0;
+  width: 50vw;
 }
 
-.map-container.right {
-  right: 0;
-}
-/* 
-@media only screen and (max-width: 600px) {
-  .tr-section {
+@media only screen and (max-width: 825px) {
+  .tr-wrapper .tr-section {
     width: 100%;
   }
 
-  .map-container {
+  .tr-wrapper .map-container {
     display: none;
   }
-} */
+
+  .tr-wrapper .tr-list-item .show-btn {
+    display: none;
+  }
+}
