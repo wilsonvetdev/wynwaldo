@@ -1,5 +1,6 @@
 <%= react_component 'Map',
     props:  {
-              token:        ENV['MAPBOX_TOKEN'],
-              coordinates:  @coordinates
+              token:            ENV['MAPBOX_TOKEN'],
+              coordinates:      @coordinates,
+              showMarkers:      true
             } %>

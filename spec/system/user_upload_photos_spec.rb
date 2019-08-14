@@ -26,11 +26,6 @@ RSpec.describe "uploading photo", type: :system, js: true do
     it "should have the uploaded image on show page" do
       expect(page).to have_css("img[src*='#{url_for(Photo.last.image)}']")
     end
-
-    it "should have the lat and long on the show page" do
-      expect(page).to have_text("Latitude: #{Photo.last.latitude}") # may have to move this to controller once map is here
-      expect(page).to have_text("Longitude: #{Photo.last.longitude}") # may have to move this to controller once map is here
-    end
   end
 
   context "when photo has no location" do

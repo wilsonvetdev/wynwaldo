@@ -5,11 +5,16 @@ class PhotosController < ApplicationController
     @photo = Photo.new
     @photos = Photo.with_attached_image.includes(:user, :visits)
     photo = Photo.last
-    @coordinates = [photo.longitude, photo.latitude]
+    if photo 
+      @coordinates = [photo.longitude, photo.latitude]
+    else
+      @coordinates = [-80.199145, 25.800791]
+    end
   end
 
   def show
     @photo = Photo.find_by_id(params[:id])
+    @coordinates = [@photo.longitude, @photo.latitude]
     if user_signed_in?
       Visit.create(user: current_user, photo: @photo)
     else
@@ -38,6 +43,7 @@ class PhotosController < ApplicationController
   private
 
   def set_photo
+
     @photo = current_user.photos.find(params[:id])
   end
 

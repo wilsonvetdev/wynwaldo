@@ -1,16 +1,10 @@
 <h1>Wynwood Wall Pictures</h1>
 
-<div id="detail_wrapper">
-  <div id="detail_image">
+<div id="detail-wrapper">
+  <div id="detail-image">
     <%= image_tag @photo.image, height: '450'%>
   </div>
-  <div id="longlat">
-    <p>
-      Latitude: <%= @photo.image.blob.metadata["latitude"] %>
-    </p>
-    <p>
-      Longitude: <%= @photo.image.blob.metadata["longitude"] %>
-    </p>
+  <div id="detail-info">
     <p>
       <%= @photo.visits.count %> visits
     </p>
@@ -19,5 +13,11 @@
     </p>
   </div>
 
-  <%= link_to "Back", photos_url %>
+  <%= react_component 'Map',
+      props:  {
+                token:            ENV['MAPBOX_TOKEN'],
+                coordinates:      @coordinates,
+                showNavigation:   true,
+                photo:            @photo
+              } %>
 </div>

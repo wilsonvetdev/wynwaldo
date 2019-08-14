@@ -1,12 +1,17 @@
-#detail_wrapper {
+#detail-wrapper {
   display: grid;
 }
 
-#longlat {
+#detail-info {
   text-align: center;
 }
 
-#detail_image {
+#detail-image {
   display: grid;
   place-items: center;
+}
+
+#detail-wrapper .map-container {
+  width: 100%;
+  height: 100vh;
 }
