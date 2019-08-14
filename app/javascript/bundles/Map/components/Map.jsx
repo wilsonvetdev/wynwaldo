@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import SprayCan from './images/paintcan.svg';
+import { styles } from './styles'
 
 class Map extends Component {
     state = { currentLoc: [] }
@@ -50,9 +51,10 @@ class Map extends Component {
           inputs: false,
           profileSwitcher: false
         },
-        flyTo: false
+        flyTo: false,
+        styles
       })
-      this.map.addControl(this.directions, 'top-left')      
+      this.map.addControl(this.directions, 'top-left')
     }
 
     this.map.on('load', () => {
@@ -121,6 +123,18 @@ class Map extends Component {
         });
         this.map.on('click', 'photos', this.handleMarkerClick)
       } // end markers
+      if(this.props.photo){
+        this.popup = new mapboxgl.Popup()
+        .setLngLat(this.props.coordinates)
+        .setHTML(`
+          <div class="popup">
+            <a href="/photos/${this.props.photo.id}">
+              <img src=${this.props.photo.image} />
+            </a>
+          </div>
+        `)
+        .addTo(this.map)
+      }
     }) // end onload
   } // end createMap
 

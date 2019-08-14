@@ -29,7 +29,7 @@
         <input type="checkbox" class="dd-input" id="test">
         <ul class="dd-menu">
           <% if current_user %>
-            <li><%= link_to 'My Photos', myphotos_path %></li>
+            <li><%= link_to 'My Photos', my_photos_path %></li>
             <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
           <% else %>
             <li><%= link_to 'Sign Up', new_user_registration_path %></li>
@@ -49,8 +49,6 @@
     <button id="scrollButton">Top</button>
 
     <script>
-      document.getElementById('scrollButton').addEventListener('click', topFunction)
-
       window.onscroll = function() {scrollFunction()};
 
       function scrollFunction() {
@@ -61,22 +59,28 @@
         }
       }
 
-      // When the user clicks on the button, scroll to the top of the document
       function topFunction() {
         document.body.scrollTop = 0; // For Safari
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
       }
 
-      document.getElementById('uploadButton').addEventListener('click', showDropzone)
-
       function showDropzone() {
-        let x = document.getElementById("image-upload-dropzone");
-        if (x.style.display === "block") {
-          x.style.display = "none";
+        const imageUploadDZ = document.getElementById("image-upload-dropzone");
+        if (imageUploadDZ.style.display === "block") {
+          imageUploadDZ.style.display = "none";
         } else {
-          x.style.display = "block";
+          imageUploadDZ.style.display = "block";
         }
       }
+
+      document.addEventListener("turbolinks:load", function(){
+        const scroll = document.getElementById('scrollButton')
+        if(scroll) scroll.addEventListener('click', topFunction)
+
+        // When the user clicks on the button, scroll to the top of the document
+        const uploadButton = document.getElementById('uploadButton')
+        if (uploadButton) uploadButton.addEventListener('click', showDropzone)
+      })
     </script>
   </body>
 </html>

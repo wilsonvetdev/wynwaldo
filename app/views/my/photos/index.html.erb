@@ -1,23 +1,18 @@
 <main class="myphotos_wrapper">
   <h1 class="title_h1">My Wall Photos</h1>
-
   <ul class="tr-list">
     <% @photos.each do |photo| %>
       <li class="tr-list-item">
-        <%= link_to photo_path(photo.id) do  %>
+        <%= link_to photo do  %>
           <%= image_tag photo.image if photo.image.attached? %>
         <% end %>
-        <%= button_to 'Delete', 
-          photo_path(photo.id), 
-            method: :delete, 
-            data: { confirm: 'Are you sure?' } 
-        %> 
+        <%= button_to 'Delete',
+            photo,
+            method: :delete,
+            data: { confirm: 'Are you sure?' }
+        %>
       </li>
-    <% end %> 
+    <% end %>
   </ul>
 </main>
-<p>
-  <%= link_to "Back", photos_url %>
-<p>
-
-
+<p><%= link_to "Back", photos_url %><p>
