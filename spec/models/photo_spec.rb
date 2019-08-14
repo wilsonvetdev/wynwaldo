@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Photo, type: :model do
-  describe Photo, '.pull_coords_from_image_metadata' do
+  xdescribe Photo, '.pull_coords_from_image_metadata' do
     let(:photo_gps) { create :photo_gps, :with_image }
     let(:photo_no_gps) { create :photo_no_gps, :with_image }
     let(:photo_no_image) { create :photo_no_gps }
