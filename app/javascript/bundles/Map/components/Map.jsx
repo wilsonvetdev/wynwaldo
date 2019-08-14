@@ -64,7 +64,8 @@ class Map extends Component {
             this.map.flyTo({
               center: [position.coords.longitude, position.coords.latitude]
             })
-            if(this.props.navigation) {
+            if(this.props.showNavigation) {
+              // set initial origin and destination
               this.directions.setOrigin([position.coords.longitude, position.coords.latitude])
               this.directions.setDestination(this.props.coordinates)
             }
@@ -74,46 +75,48 @@ class Map extends Component {
           // options
           geolocationOptions
         );
-      }
-      this.map.addSource('photos',
-      {
-        type: 'geojson',
-        data: '/map.json',
-        cluster: true,
-        clusterMaxZoom: 24,
-        clusterRadius: 50,
-      })
-      this.map.addLayer({
-        id: 'photos',
-        type: 'symbol',
-        source: 'photos',
-        layout: {
-          'icon-image': 'paintcan',
-          'icon-size': 0.1,
-          'icon-allow-overlap': true,
-        }
-      });
-      this.map.addLayer({
-        id: 'clusters',
-        type: 'circle',
-        source: 'photos',
-        filter: ['has', 'point_count'],
-        paint: { "circle-color": ["rgba", 0,0,0,0] }
-      })
-      this.map.addLayer({
-        id: "cluster-count",
-        type: "symbol",
-        source: "photos",
-        filter: ["has", "point_count"],
-        layout: {
-          "text-field": "{point_count_abbreviated}",
-          "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
-          "text-size": 12
-        }
-      });
-      this.map.on('click', 'photos', this.handleMarkerClick)
+      } // end geolocation 
+      if(this.props.showMarkers){
+        this.map.addSource('photos',
+        {
+          type: 'geojson',
+          data: '/map.json',
+          cluster: true,
+          clusterMaxZoom: 24,
+          clusterRadius: 50,
+        })
+        this.map.addLayer({
+          id: 'photos',
+          type: 'symbol',
+          source: 'photos',
+          layout: {
+            'icon-image': 'paintcan',
+            'icon-size': 0.1,
+            'icon-allow-overlap': true,
+          }
+        });
+        this.map.addLayer({
+          id: 'clusters',
+          type: 'circle',
+          source: 'photos',
+          filter: ['has', 'point_count'],
+          paint: { "circle-color": ["rgba", 0,0,0,0] }
+        })
+        this.map.addLayer({
+          id: "cluster-count",
+          type: "symbol",
+          source: "photos",
+          filter: ["has", "point_count"],
+          layout: {
+            "text-field": "{point_count_abbreviated}",
+            "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+            "text-size": 12
+          }
+        });
+        this.map.on('click', 'photos', this.handleMarkerClick)
+      } // end markers
     }) // end onload
-  }
+  } // end createMap
 
   handleMarkerClick = e => {
     const map = this.map;
@@ -145,13 +148,13 @@ class Map extends Component {
       backgroundColor:  'azure',
       margin:           '0'
     }
-    const { photos, photoList } = this.props
+    const { photos, showList } = this.props
     return(
       <React.Fragment>
         <section className="tr-section">
           <ul className="tr-list">
             {
-              photoList &&
+              showList &&
               photos.map(photo => (
                 <li className="tr-list-item" key={photo.id}>
                   <div>

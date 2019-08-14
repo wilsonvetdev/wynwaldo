@@ -28,5 +28,10 @@
     </p>
   </div>
 
-  <%= link_to "Back", photos_url %>
+  <%= react_component 'Map',
+      props:  {
+                token:            ENV['MAPBOX_TOKEN'],
+                coordinates:      @coordinates,
+                showNavigation:   true
+              } %>
 </div>
