@@ -39,17 +39,18 @@ class Map extends Component {
 
   createMap = (mapOptions, geolocationOptions) => {
     this.map = new mapboxgl.Map(mapOptions)
-    this.map.addControl(
-      new mapboxgl.GeolocateControl({ positionOptions: geolocationOptions, trackUserLocation: true })
-    )
-    if(this.props.navigation) {
+    this.geolocateControl = new mapboxgl.GeolocateControl({ positionOptions: geolocationOptions, trackUserLocation: true })
+    this.map.addControl(this.geolocateControl)
+    if(this.props.showNavigation) {
       this.directions = new MapboxDirections({
-          accessToken: mapboxgl.accessToken,
-          profile: 'mapbox/walking',
-          interactive: false,
-          controls: {
+        accessToken: mapboxgl.accessToken,
+        profile: 'mapbox/walking',
+        interactive: false,
+        controls: {
+          inputs: false,
           profileSwitcher: false
-        }
+        },
+        flyTo: false
       })
       this.map.addControl(this.directions, 'top-left')      
     }
@@ -60,7 +61,6 @@ class Map extends Component {
         navigator.geolocation.getCurrentPosition(
           // success callback
           position => {
-            console.log({position})
             this.map.flyTo({
               center: [position.coords.longitude, position.coords.latitude]
             })
@@ -68,6 +68,12 @@ class Map extends Component {
               // set initial origin and destination
               this.directions.setOrigin([position.coords.longitude, position.coords.latitude])
               this.directions.setDestination(this.props.coordinates)
+
+              // register callback to update navigation if user location changes
+              this.geolocateControl.on('geolocate', (pos) => {
+                console.log(pos.coords)
+                this.directions.setOrigin([pos.coords.longitude, pos.coords.latitude])
+              })
             }
           },
           // failure callback
