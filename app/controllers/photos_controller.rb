@@ -4,7 +4,7 @@ class PhotosController < ApplicationController
   def index
     @photos = Photo.with_attached_image.includes(:user, :visits)
     photo = Photo.last
-    if photo 
+    if photo
       @coordinates = [photo.longitude, photo.latitude]
     else
       @coordinates = [-80.199145, 25.800791]
@@ -14,6 +14,7 @@ class PhotosController < ApplicationController
   def show
     @photo = Photo.find_by_id(params[:id])
     @coordinates = [@photo.longitude, @photo.latitude]
+    @nearby_photos = Photo.near([@photo.latitude, @photo.longitude], 0.1).where.not(id: @photo.id)
     if user_signed_in?
       Visit.create(user: current_user, photo: @photo)
     else
@@ -49,7 +50,6 @@ class PhotosController < ApplicationController
   private
 
   def set_photo
-
     @photo = current_user.photos.find(params[:id])
   end
 

@@ -1,5 +1,6 @@
 class Photo < ApplicationRecord
   include Rails.application.routes.url_helpers
+  geocoded_by :nothing
   has_one_attached :image
   belongs_to :user
   has_many :visits, dependent: :destroy
