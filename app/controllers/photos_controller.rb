@@ -22,6 +22,7 @@ class PhotosController < ApplicationController
   end
 
   def create
+    user_agent = UserAgent.parse(request.user_agent)
     if user_agent.platform == 'iPhone'
       flash[:alert] = "Device not supported.  Please try from a desktop computer."
       return render json: { location: root_path }
