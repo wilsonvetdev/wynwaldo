@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
+gem 'useragent'
 gem 'devise'
 gem 'geocoder'
 gem 'react_on_rails'

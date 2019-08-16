@@ -22,6 +22,11 @@ class PhotosController < ApplicationController
   end
 
   def create
+    puts "==============="
+    user_agent = UserAgent.parse(request.user_agent)
+    puts user_agent.browser
+    puts user_agent.platform
+    puts "==============="
     photo = current_user.photos.create(photo_params)
     photo.image.blob.analyze unless photo.image.blob.analyzed?
     if photo.image.blob.metadata["latitude"] && photo.image.blob.metadata["longitude"]
