@@ -2,7 +2,6 @@ class PhotosController < ApplicationController
   before_action :set_photo, only: [:destroy]
 
   def index
-    @photo = Photo.new
     @photos = Photo.with_attached_image.includes(:user, :visits)
     photo = Photo.last
     if photo 
@@ -23,9 +22,16 @@ class PhotosController < ApplicationController
   end
 
   def create
+    user_agent = UserAgent.parse(request.user_agent)
+    if user_agent.platform == 'iPhone'
+      flash[:alert] = "Device not supported.  Please try from a desktop computer."
+      return render json: { location: root_path }
+    end
     photo = current_user.photos.create(photo_params)
-    photo.image.blob.analyze
+    photo.image.blob.analyze unless photo.image.blob.analyzed?
     if photo.image.blob.metadata["latitude"] && photo.image.blob.metadata["longitude"]
+      photo.pull_coords_from_image_metadata
+      photo.save
       flash[:notice] = "Photo uploaded!"
       render json: { location: photo_path(photo) }
     else
