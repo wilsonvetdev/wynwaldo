@@ -41,7 +41,7 @@
       </label>
       <% if user_signed_in? %>
         <button id="uploadButton"><span class="emoji">📎</span></button>
-        <%= render 'form', photo: @photo %>
+        <%= render 'form' %>
       <% end %>
     </nav>
     <%= yield %>

@@ -2,7 +2,6 @@ class PhotosController < ApplicationController
   before_action :set_photo, only: [:destroy]
 
   def index
-    @photo = Photo.new
     @photos = Photo.with_attached_image.includes(:user, :visits)
     photo = Photo.last
     if photo 
