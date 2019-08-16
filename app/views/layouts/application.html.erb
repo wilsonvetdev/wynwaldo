@@ -28,6 +28,9 @@
         </div>
         <input type="checkbox" class="dd-input" id="test">
         <ul class="dd-menu">
+          <% if current_user && current_user.admin == true %>
+            <li><%= link_to 'Admin', rails_admin_path %></li>
+          <% end %>
           <% if current_user %>
             <li><%= link_to 'My Photos', my_photos_path %></li>
             <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
@@ -39,7 +42,7 @@
             <li><%= link_to "Map View", map_path %></li>
         </ul>
       </label>
-      <% if user_signed_in? %>
+      <% if user_signed_in? && current_user.admin == true %>
         <button id="uploadButton"><span class="emoji">📎</span></button>
         <%= render 'form' %>
       <% end %>
