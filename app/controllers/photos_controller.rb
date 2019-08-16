@@ -24,8 +24,10 @@ class PhotosController < ApplicationController
 
   def create
     photo = current_user.photos.create(photo_params)
-    photo.image.blob.analyze
+    photo.image.blob.analyze unless photo.image.blob.analyzed?
     if photo.image.blob.metadata["latitude"] && photo.image.blob.metadata["longitude"]
+      photo.pull_coords_from_image_metadata
+      photo.save
       flash[:notice] = "Photo uploaded!"
       render json: { location: photo_path(photo) }
     else

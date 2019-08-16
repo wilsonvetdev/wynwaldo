@@ -4,8 +4,6 @@ class Photo < ApplicationRecord
   belongs_to :user
   has_many :visits, dependent: :destroy
 
-  before_create :pull_coords_from_image_metadata
-
   def pull_coords_from_image_metadata
     if image.attached?
       self.latitude   = image.blob.metadata["latitude"]
