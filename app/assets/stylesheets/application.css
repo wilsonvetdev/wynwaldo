@@ -23,3 +23,11 @@
 h1 {
   font-family: 'Inconsolata', monospace;
 }
+
+img {
+  border-radius: 4px;
+}
+
+.mapboxgl-canvas, .mapboxgl-canvas, .mapboxgl-canvas-container, .mapboxgl-interactive, .mapboxgl-map {
+  border-radius: 4px;
+}

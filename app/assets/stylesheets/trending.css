@@ -15,6 +15,7 @@ ul.tr-list img {
   width:  300%;
   height: 275px;
   border: solid 1px gray;
+  box-shadow: 1px;
 }
 
 li.tr-list-item img {
