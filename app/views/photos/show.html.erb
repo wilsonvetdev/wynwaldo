@@ -12,15 +12,12 @@
       Posted by: some@guy.com
     </p>
   </div>
-  <h2>Photos Around This One</h2>
   <div id="detail-map">
     <%= react_component 'Map',
         props:  {
                   token:            ENV['MAPBOX_TOKEN'],
-                  coordinates:      @coordinates,
                   showNavigation:   true,
                   photo:            @photo,
-                  photos:           @nearby_photos,
                   showList:         true
                 } %>
   </div>
