@@ -17,10 +17,8 @@
     <%= react_component 'Map',
         props:  {
                   token:            ENV['MAPBOX_TOKEN'],
-                  coordinates:      @coordinates,
                   showNavigation:   true,
                   photo:            @photo,
-                  photos:           @nearby_photos,
                   showList:         true
                 } %>
   </div>
