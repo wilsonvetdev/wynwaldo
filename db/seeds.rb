@@ -9,12 +9,13 @@
 User.destroy_all
 Photo.destroy_all
 
-user = User.create!(email: "some@guy.com", password: "password")
+admin = User.create!(email: "some@admin.com", password: "password", admin: true)
+User.create!(email: "some@guy.com", password: "password")
 
 puts "#{User.count} users in the system..."
 
 Dir.each_child(Rails.root.join('spec', 'support', 'assets', 'good')).each do |filename|
-  photo = user.photos.new
+  photo = admin.photos.new
   photo.image.attach(io: File.open(Rails.root.join('spec', 'support', 'assets', 'good', filename)), filename: filename)
   photo.save
   photo.image.blob.analyze
