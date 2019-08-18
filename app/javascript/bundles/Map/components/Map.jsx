@@ -31,24 +31,12 @@ class Map extends Component {
             },
             properties: {
               id: photo.id,
-              image: photo.location
+              image: photo.image
             }
           }
         ))
       }
     )
-
-    // {
-    //   type: "Feature",
-    //   geometry: {
-    //     type: "Point",
-    //     coordinates: [photo.longitude, photo.latitude]
-    //   },
-    //   properties: {
-    //     id: photo.id,
-    //     image: photo.location
-    //   }
-    // }
   }
 
   fetchPhotos = (photo, userPosition) => {
@@ -76,7 +64,7 @@ class Map extends Component {
     return {origin, destination}
   }
 
-  centerMap = ({origin, destination}) => {
+  setupNavigation = ({origin, destination}) => {
     this.map.flyTo({
       center: origin || MAP_CENTER
     })
@@ -120,13 +108,13 @@ class Map extends Component {
           position => {
             console.log("got your location")
             const startEnd = this.fetchPhotos(this.props.photo, position)
-            this.centerMap(startEnd)
+            this.props.photo && this.setupNavigation(startEnd)
           },
           // failure callback
           () => {
             console.log("Couldn't get user location")
             const startEnd = this.fetchPhotos(this.props.photo)
-            this.centerMap(startEnd)
+            this.props.photo && this.setupNavigation(startEnd)
           },
           // options
           geolocationOptions
@@ -171,10 +159,10 @@ class Map extends Component {
   }
 
   flyTo = photo => {
-    this.map.flyTo({center: photo.coordinates, zoom: 18})
+    this.map.flyTo({center: [photo.longitude, photo.latitude], zoom: 18})
     this.popup && this.popup.remove()
     this.popup = new mapboxgl.Popup()
-      .setLngLat(photo.coordinates)
+      .setLngLat([photo.longitude, photo.latitude])
       .setHTML(`
         <div class="popup">
           <a href="${photo.location}">
