@@ -29,11 +29,3 @@
   place-items: center;
 }
 
-canvas .mapboxgl-canvas, .mapboxgl-canvas-container, .mapboxgl-interactive, .mapboxgl-map {
-  width:   800px !important;
-  display: flex;
-}
-
-.mapboxgl-control-container, .mapboxgl-ctrl-directions .mapboxgl-ctrl, {
-  left:   50%;
-}
