@@ -43,8 +43,8 @@ class Map extends Component {
     let url = ""
     let origin = photo ? photo.coordinates : false
     if(userPosition){
-      const lat = photo ? photo.coordinates[0] : userPosition.coords.latitude
-      const lng = photo ? photo.coordinates[1] : userPosition.coords.longitude  
+      const lat = photo ? photo.coordinates[1] : userPosition.coords.latitude
+      const lng = photo ? photo.coordinates[0] : userPosition.coords.longitude  
       const params = photo ? `photoId=${photo.id}&related=true` : 'related=false'
       url = `/map.json?latitude=${lat}&longitude=${lng}&${params}`
       origin = [userPosition.coords.longitude, userPosition.coords.latitude]
@@ -106,13 +106,11 @@ class Map extends Component {
         navigator.geolocation.getCurrentPosition(
           // success callback
           position => {
-            console.log("got your location")
             const startEnd = this.fetchPhotos(this.props.photo, position)
             this.props.photo && this.setupNavigation(startEnd)
           },
           // failure callback
           () => {
-            console.log("Couldn't get user location")
             const startEnd = this.fetchPhotos(this.props.photo)
             this.props.photo && this.setupNavigation(startEnd)
           },
@@ -249,12 +247,12 @@ class Map extends Component {
     const { photos, criteria } = this.state
     return(
       <React.Fragment>
-        {criteria && <h1 className="title-h1">{criteria} Photos</h1>}
-        <section className="tr-section">
-          <ul className="tr-list">
-            {
-              showList &&
-              photos.map(photo => (
+        {criteria && photos.length > 0 && <h1 className="title-h1">{criteria} Photos</h1>}
+        {
+          (showList && photos.length > 0) &&
+          <section className="tr-section">
+            <ul className="tr-list">
+              {photos.map(photo => (
                 <li className="tr-list-item" key={photo.id}>
                   <div>
                     <a href={photo.location}>
@@ -264,23 +262,25 @@ class Map extends Component {
                       {photo.visits} visits
                     </p>
                     <p>
-                      {photo.distance.toFixed(2)} mi away
+                      {photo.distance.toFixed(2)} mi away {this.props.photo && "from this photo"}
                     </p>
                     <p>
                       Posted by: {photo.user.email}
                     </p>
                   </div>
                   <div>
-                    <button className="show-btn" onClick={() => this.flyTo(photo)}>
-                      Show on Map
-                    </button>
+                    {!this.props.photo && (
+                      <button className="show-btn" onClick={() => this.flyTo(photo)}>
+                        Show on Map
+                      </button>
+                    )}
                     <a href={photo.location}>Details</a>
                   </div>
                 </li>
-              ))
-            }
-          </ul>
-        </section>
+              ))}
+            </ul>
+          </section>
+        }
         <div className="map-container">
           <div style={styles} ref={el => this.mapContainer = el}></div>
         </div>

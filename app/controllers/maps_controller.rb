@@ -6,7 +6,7 @@ class MapsController < ApplicationController
       format.json do
         if params[:latitude] && params[:longitude]
           if params[:related] == 'true'
-            @photos = Photo.near([params[:latitude], params[:longitude]]).where.not(id: params[:photoId].to_i)
+            @photos = Photo.near([params[:latitude], params[:longitude]], 0.1).where.not(id: params[:photoId].to_i)
             @criteria = "This Photos Nearby"
           else
             @photos = Photo.most_visited.near([params[:latitude], params[:longitude]], 0.25, :order => 'distance')
@@ -32,7 +32,7 @@ class MapsController < ApplicationController
               visits: photo.visits.count,
               longitude: photo.longitude,
               latitude: photo.latitude,
-              distance: params[:related] == 'true' ? 0 : photo.distance_to([params[:latitude], params[:longitude]]),
+              distance: photo.distance_to([params[:latitude], params[:longitude]]),
               user: {
                 email: photo.user.email
               }
