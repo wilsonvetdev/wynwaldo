@@ -7,3 +7,7 @@
 .popup{
   padding: 3px;
 }
+
+.mapboxgl-canvas-container .mapboxgl-canvas, .mapboxgl-canvas-container, .mapboxgl-interactive, .mapboxgl-map {
+  border-radius: 4px;
+}

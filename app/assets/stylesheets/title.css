@@ -1,14 +1,12 @@
-/* svg {
-  overflow: visible;
+.title svg {
+  height: 145px;
+  width: 100%;
 }
 
-#W, #y, #n, #W, #a, #l, #d, #o{
-  stroke: red;
-  stroke-width: 1px;
-  /* fill: transparent;
- */
-/* } */ 
-
+.title {
+  width: 80%;
+  margin: auto;
+}
 
 .title #WynWaldo {
   stroke: fuchsia;
@@ -19,7 +17,6 @@
   stroke-dashoffset: 0px;
   align-content: center;
 }
-
 
 .title-animated  #WynWaldo{
   fill-opacity: 0;

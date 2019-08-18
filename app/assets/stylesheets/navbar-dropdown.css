@@ -1,4 +1,3 @@
-
 .dropdown a{
   text-decoration: none;
   color: #000000;
@@ -14,6 +13,8 @@
   display: inline-block;
   position: relative;
   z-index: 1;
+  left: 87%;
+  margin: 10px;
 }
 
 .dropdown::selection {
@@ -50,7 +51,6 @@
 .dd-button:hover {
   background-color: #eeeeee;
 }
-
 
 .dd-input {
   display: none;
@@ -96,4 +96,3 @@
   padding: 0;
   border-bottom: 1px solid #cccccc;
 }
-
