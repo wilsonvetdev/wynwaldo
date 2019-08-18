@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>WynWaldo</title>
+    <title>Wywood Waldo</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta charset="UTF-8">
@@ -38,11 +38,16 @@
             <li><%= link_to "Home", root_path %></li>
             <li><%= link_to "Map View", map_path %></li>
         </ul>
+
       </label>
       <% if user_signed_in? %>
         <button id="uploadButton"><span class="emoji">📎</span></button>
         <%= render 'form' %>
       <% end %>
+
+      <div class="<%=current_page?(root_path) ? 'title title-animated' : 'title' %>">
+        <%= render "title" %>
+        </div>
     </nav>
     <%= yield %>
 
