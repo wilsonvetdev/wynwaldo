@@ -6,8 +6,6 @@ class PhotosController < ApplicationController
 
   def show
     @photo = Photo.find_by_id(params[:id])
-    @coordinates = [@photo.longitude, @photo.latitude]
-    @nearby_photos = Photo.near([@photo.latitude, @photo.longitude], 0.1).where.not(id: @photo.id)
     if user_signed_in?
       Visit.create(user: current_user, photo: @photo)
     else

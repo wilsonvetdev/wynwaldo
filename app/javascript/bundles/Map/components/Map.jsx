@@ -10,23 +10,87 @@ class Map extends Component {
     photos: []
   }
 
-  createGeoJson = () => {
+  createGeoJson = (photos) => {
+    if(!photos || photos.length === 0){
+      return (
+        {
+          type: "FeatureCollection",
+          features: {}
+        }
+      )
+    }
+    return (
+      {
+        type: "FeatureCollection",
+        features: photos.map(photo => (
+          {
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: [photo.longitude, photo.latitude]
+            },
+            properties: {
+              id: photo.id,
+              image: photo.location
+            }
+          }
+        ))
+      }
+    )
+
     // {
-    //   type: "FeatureCollection",
-    //   features: @photos.map do |photo|
-    //     {
-    //       type: "Feature",
-    //       geometry: {
-    //         type: "Point",
-    //         coordinates: [photo.longitude, photo.latitude]
-    //       },
-    //       properties: {
-    //         id: photo.id,
-    //         image: url_for(photo.image)
-    //       }
-    //     }
-    //   end
+    //   type: "Feature",
+    //   geometry: {
+    //     type: "Point",
+    //     coordinates: [photo.longitude, photo.latitude]
+    //   },
+    //   properties: {
+    //     id: photo.id,
+    //     image: photo.location
+    //   }
     // }
+  }
+
+  fetchPhotos = (photo, userPosition) => {
+    let url = ""
+    let origin = photo ? photo.coordinates : false
+    if(userPosition){
+      const lat = photo ? photo.coordinates[0] : userPosition.coords.latitude
+      const lng = photo ? photo.coordinates[1] : userPosition.coords.longitude  
+      const params = photo ? `photoId=${photo.id}&related=true` : 'related=false'
+      url = `/map.json?latitude=${lat}&longitude=${lng}&${params}`
+      origin = [userPosition.coords.longitude, userPosition.coords.latitude]
+    } else {
+      url = '/map.json?related=false'
+    }
+
+    const destination = photo ? [photo.coordinates[0], photo.coordinates[1]] : false
+    
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.photos)
+        this.setState({photos: data.photos, criteria: data.criteria})
+      })
+
+    return {origin, destination}
+  }
+
+  centerMap = ({origin, destination}) => {
+    this.map.flyTo({
+      center: origin || MAP_CENTER
+    })
+    if(this.props.showNavigation && origin && destination) {
+      // set initial origin and destination
+      this.directions.setOrigin(origin)
+      this.directions.setDestination(destination)
+
+      // register callback to update navigation if user location changes
+      this.geolocateControl.on('geolocate', (pos) => {
+        console.log(pos.coords)
+        this.directions.setOrigin([pos.coords.longitude, pos.coords.latitude])
+      })
+    }
   }
 
   createMap = (mapOptions, geolocationOptions) => {
@@ -54,80 +118,23 @@ class Map extends Component {
         navigator.geolocation.getCurrentPosition(
           // success callback
           position => {
-            // make request for photos near position.coords
             console.log("got your location")
-            fetch(`/map.json?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`)
-              .then(response => response.json())
-              .then(data => console.log(data))
-            // this.map.flyTo({
-            //   center: [position.coords.longitude, position.coords.latitude]
-            // })
-            // if(this.props.showNavigation) {
-            //   // set initial origin and destination
-            //   this.directions.setOrigin([position.coords.longitude, position.coords.latitude])
-            //   this.directions.setDestination(this.props.coordinates)
-
-            //   // register callback to update navigation if user location changes
-            //   this.geolocateControl.on('geolocate', (pos) => {
-            //     console.log(pos.coords)
-            //     this.directions.setOrigin([pos.coords.longitude, pos.coords.latitude])
-            //   })
-            // }
+            const startEnd = this.fetchPhotos(this.props.photo, position)
+            this.centerMap(startEnd)
           },
           // failure callback
           () => {
             console.log("Couldn't get user location")
-            // make request with no location
-            fetch(`/map.json`)
-              .then(response => response.json())
-              .then(data => console.log(data))
+            const startEnd = this.fetchPhotos(this.props.photo)
+            this.centerMap(startEnd)
           },
           // options
           geolocationOptions
         );
       } // end geolocation 
-      // if(this.props.showMarkers){
-      //   this.map.addSource('photos',
-      //   {
-      //     type: 'geojson',
-      //     data: '/map.json',
-      //     cluster: true,
-      //     clusterMaxZoom: 24,
-      //     clusterRadius: 50,
-      //   })
-      //   this.map.addLayer({
-      //     id: 'photos',
-      //     type: 'symbol',
-      //     source: 'photos',
-      //     layout: {
-      //       'icon-image': 'paintcan',
-      //       'icon-size': 0.1,
-      //       'icon-allow-overlap': true,
-      //     }
-      //   });
-      //   this.map.addLayer({
-      //     id: 'clusters',
-      //     type: 'circle',
-      //     source: 'photos',
-      //     filter: ['has', 'point_count'],
-      //     paint: { "circle-color": ["rgba", 0,0,0,0] }
-      //   })
-      //   this.map.addLayer({
-      //     id: "cluster-count",
-      //     type: "symbol",
-      //     source: "photos",
-      //     filter: ["has", "point_count"],
-      //     layout: {
-      //       "text-field": "{point_count_abbreviated}",
-      //       "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
-      //       "text-size": 12
-      //     }
-      //   });
-      //   this.map.on('click', 'photos', this.handleMarkerClick)
-      // } // end markers
       if(this.props.photo){
         this.popup = new mapboxgl.Popup()
-        .setLngLat(this.props.coordinates)
+        .setLngLat(this.props.photo.coordinates)
         .setHTML(`
           <div class="popup">
             <a href="/photos/${this.props.photo.id}">
@@ -194,6 +201,50 @@ class Map extends Component {
     }
     this.createMap(mapOptions, geolocationOptions)
   }
+  
+  componentDidUpdate(prevProps, prevState) {
+    if (JSON.stringify(this.state.photos) !== JSON.stringify(prevState.photos)) {
+      if(this.props.showMarkers && this.state.photos.length > 0){
+        this.map.addSource('photos',
+        {
+          type: 'geojson',
+          data: console.log(this.createGeoJson(this.state.photos)) || this.createGeoJson(this.state.photos),
+          cluster: true,
+          clusterMaxZoom: 24,
+          clusterRadius: 50,
+        })
+        this.map.addLayer({
+          id: 'photos',
+          type: 'symbol',
+          source: 'photos',
+          layout: {
+            'icon-image': 'paintcan',
+            'icon-size': 0.1,
+            'icon-allow-overlap': true,
+          }
+        });
+        this.map.addLayer({
+          id: 'clusters',
+          type: 'circle',
+          source: 'photos',
+          filter: ['has', 'point_count'],
+          paint: { "circle-color": ["rgba", 0,0,0,0] }
+        })
+        this.map.addLayer({
+          id: "cluster-count",
+          type: "symbol",
+          source: "photos",
+          filter: ["has", "point_count"],
+          layout: {
+            "text-field": "{point_count_abbreviated}",
+            "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+            "text-size": 12
+          }
+        });
+        this.map.on('click', 'photos', this.handleMarkerClick)
+      } // end markers
+    }
+  }
 
   componentWillUnmount() {
     this.map.remove()
@@ -207,12 +258,13 @@ class Map extends Component {
       margin:           '0'
     }
     const { showList } = this.props
-    const { photos } = this.state
+    const { photos, criteria } = this.state
     return(
       <React.Fragment>
+        {criteria && <h1 className="title-h1">{criteria} Photos</h1>}
         <section className="tr-section">
           <ul className="tr-list">
-            {/* {
+            {
               showList &&
               photos.map(photo => (
                 <li className="tr-list-item" key={photo.id}>
@@ -222,6 +274,9 @@ class Map extends Component {
                     </a>
                     <p>
                       {photo.visits} visits
+                    </p>
+                    <p>
+                      {photo.distance.toFixed(2)} mi away
                     </p>
                     <p>
                       Posted by: {photo.user.email}
@@ -235,7 +290,7 @@ class Map extends Component {
                   </div>
                 </li>
               ))
-            } */}
+            }
           </ul>
         </section>
         <div className="map-container">
