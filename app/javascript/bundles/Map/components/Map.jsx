@@ -268,14 +268,13 @@ class Map extends Component {
                       Posted by: {photo.user.email}
                     </p>
                   </div>
-                  {/* <div>
+                  <div>
                     {!this.props.photo && (
                       <button className="show-btn" onClick={() => this.flyTo(photo)}>
                         Show on Map
                       </button>
                     )}
-                    <a href={photo.location}>Details</a>
-                  </div> */}
+                  </div>
                 </li>
               ))}
             </ul>

@@ -19,6 +19,7 @@
   border:     solid 1px gray;
   box-shadow: 1px;
   margin:     5px;
+  width:      300%;
 }
 
 #home-wrapper li.tr-list-item img {
@@ -31,6 +32,8 @@
 
 #home-wrapper .tr-list-item {
   width: 30%;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 #home-wrapper li.tr-list-item a img {
@@ -44,14 +47,18 @@
 }
 
 #home-wrapper .map-container {
-  height:   300px;
+  height:   500px;
   position: fixed;
   right:    0;
   width:    50vw;
 }
 
 #home-wrapper ul.tr-list p {
-  margin: 0;
+  /* margin: 0; */
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-top: -15px;
+  margin-bottom: 20px;
 }
 
 #home-wrapper .tr-list-item .bottom-right {
@@ -73,4 +80,9 @@
   #home-wrapper .tr-list-item .show-btn {
     display: none;
   }
+}
+
+@media only screen and (min-width: 825px) {
+  /* desktop overides */
+  
 }

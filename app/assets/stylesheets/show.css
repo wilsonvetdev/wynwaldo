@@ -7,6 +7,7 @@
   border:     solid 1px gray;
   box-shadow: 1px;
   margin:     5px;
+  width:      300%;
 }
 
 #show-wrapper li.tr-list-item img {
@@ -50,6 +51,7 @@
 
 #show-wrapper #show-info p {
   margin: 0;
+  
 }
 
 #show-wrapper ul.tr-list {
@@ -64,4 +66,11 @@
 
 #show-wrapper #show-map .map-container {
   height: 500px;
+}
+
+#show-wrapper .tr-list-item .bottom-right {
+  position: relative;
+  bottom:   25px;
+  right:    -12px;
+  color:  white;
 }
