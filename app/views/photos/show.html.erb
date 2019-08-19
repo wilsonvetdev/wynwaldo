@@ -1,10 +1,8 @@
-<h1>Wynwood Wall Pictures</h1>
-
-<div id="detail-wrapper">
-  <div id="detail-image" class="tr-section" style="width: 600px, place-items: center">
+<main id="show-wrapper">
+  <div id="show-image" class="tr-section" style="width: 600px, place-items: center">
     <%= image_tag @photo.image, height: '450'%>
   </div>
-  <div id="detail-info">
+  <div id="show-info">
     <p>
       <%= @photo.visits.count %> visits
     </p>
@@ -12,7 +10,7 @@
       Posted by: some@guy.com
     </p>
   </div>
-  <div id="detail-map">
+  <div id="show-map">
     <%= react_component 'Map',
         props:  {
                   token:            ENV['MAPBOX_TOKEN'],
@@ -21,4 +19,4 @@
                   showList:         true
                 } %>
   </div>
-</div>
+</main>
