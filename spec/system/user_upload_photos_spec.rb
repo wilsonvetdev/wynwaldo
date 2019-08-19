@@ -23,7 +23,7 @@ RSpec.describe "uploading photo", type: :system, js: true do
       expect(page).to have_text("Photo uploaded!")
     end
 
-    it "should have the uploaded image on show page" do
+    xit "should have the uploaded image on show page" do
       expect(page).to have_css("img[src*='#{url_for(Photo.last.image)}']")
     end
   end
@@ -100,7 +100,7 @@ RSpec.describe "uploading photo", type: :system, js: true do
       expect(page.find('#image-upload-dropzone')).to_not have_selector('.dz-image-preview') 
     end
 
-    it "should still work with a photo that has location" do
+    xit "should still work with a photo that has location" do
       page.attach_file("#{Rails.root}/spec/support/assets/good/location.jpeg", visible: false) do
         page.find('#image-upload-dropzone')
       end
