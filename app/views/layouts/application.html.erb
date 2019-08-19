@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Wywood Waldo</title>
+    <title>WynWaldo</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta charset="UTF-8">
@@ -22,6 +22,9 @@
     <%= notice %>
     <%= alert %>
     <nav>
+      <% if params[:action] == 'show' %>
+        <button id="backButton" onClick="history.back()">←</button>
+      <% end %>
       <label class="dropdown">
         <div class="dd-button">
           Main Menu
@@ -41,7 +44,6 @@
             <li><%= link_to "Home", root_path %></li>
             <li><%= link_to "Map View", map_path %></li>
         </ul>
-
       </label>
       <% if user_signed_in? && current_user.admin == true %>
         <button id="uploadButton"><span class="emoji">📎</span></button>
