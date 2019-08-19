@@ -1,18 +1,18 @@
 h2.logintext, h2.signup, form#new_user, .link-login, .link-forgotpw, .link-signup, a#login {
-  display: flex;
-  place-content: center;
+  display:        flex;
+  place-content:  center;
 }
 
 a#signup, a#forgotpw {
   background-color: fuchsia;
-  color: white;
-  padding: 14px 20px;
-  margin: 1px 0;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  width: 230px;
-  text-decoration: none;
+  color:            white;
+  padding:            14px 20px;
+  margin:             1px 0;
+  border:             none;
+  border-radius:      10px;
+  cursor:             pointer;
+  width:              230px;
+  text-decoration:    none;
 }
   
 a#login:hover, a#signup:hover, a#forgotpw:hover {
@@ -20,21 +20,21 @@ a#login:hover, a#signup:hover, a#forgotpw:hover {
 }
 
 input#user_email, input#user_password, input#user_password_confirmation {
-  width: 230px;
+  width:  230px;
   height: 30px;
 }
 
 input[type=submit] {
   background-color: fuchsia;
-  color: white;
-  padding: 14px 20px;
-  margin: 1px 0;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  width: 230px;
-  text-decoration: none;
-  font-size: 1rem;
+  color:            white;
+  padding:            14px 20px;
+  margin:             1px 0;
+  border:             none;
+  border-radius:      10px;
+  cursor:             pointer;
+  width:              230px;
+  text-decoration:    none;
+  font-size:          1rem;
 }
 
 input[type=submit]:hover {
@@ -55,15 +55,15 @@ input#user_email:focus, input#user_password:focus, input#user_password_confirmat
 
 a#login {
   background-color: fuchsia;
-  color: white;
-  padding: 14px 20px;
-  margin: 1px 0;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  width: 230px;
-  text-decoration: none;
-  font-size: 1rem;
+  color:            white;
+  padding:            14px 20px;
+  margin:             1px 0;
+  border:             none;
+  border-radius:      10px;
+  cursor:             pointer;
+  width:              230px;
+  text-decoration:    none;
+  font-size:          1rem;
 }
 
 a#login:hover {
@@ -71,15 +71,15 @@ a#login:hover {
 }
 
 div.actions {
-  display: flex;
-  place-content: center;
-  margin-top: 30px;
-  margin-bottom: 5px;
+  display:        flex;
+  place-content:  center;
+  margin-top:     30px;
+  margin-bottom:  5px;
 }
 
 div.field {
-  width: 230px;
-  margin-bottom: 10px;
+  width:          230px;
+  margin-bottom:  10px;
 }
 
 div.link-signup {
