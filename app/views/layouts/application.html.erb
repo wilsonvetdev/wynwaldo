@@ -5,58 +5,61 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.js'></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.js'></script>
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.css' type='text/css' />
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/dropzone.css">
-    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cutive+Mono&display=swap" rel="stylesheet">
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'map-bundle', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= notice %>
-    <%= alert %>
+    <div class="banner notice">
+      <span><%= notice %></span>
+    </div>
+    <div class="banner alert">
+      <span><%= alert %></span>
+    </div>
     <nav>
       <% if params[:action] == 'show' %>
         <button id="backButton" onClick="history.back()">←</button>
       <% end %>
+      <% if user_signed_in? && current_user.admin == true %>
+        <button id="uploadButton"><span class="emoji">📎</span></button>
+        <%= render 'form' %>
+      <% end %>
+      <div class="<%=current_page?(root_path) ? 'title title-animated' : 'title' %>">
+        <%= link_to render(:partial => 'title'), root_url %>
+      </div>
       <label class="dropdown">
         <div class="dd-button">
-          Main Menu
+          &#9776;
         </div>
         <input type="checkbox" class="dd-input" id="test">
         <ul class="dd-menu">
           <% if current_user && current_user.admin == true %>
             <li><%= link_to 'Admin', rails_admin_path %></li>
           <% end %>
+            <li><%= link_to "Home", root_path %></li>
+            <li><%= link_to "Map View", map_path %></li>
           <% if current_user %>
             <li><%= link_to 'My Photos', my_photos_path %></li>
             <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
           <% else %>
-            <li><%= link_to 'Sign Up', new_user_registration_path %></li>
             <li><%= link_to 'Log In', new_user_session_path %></li>
+            <li><%= link_to 'Sign Up', new_user_registration_path %></li>
           <% end %>
-            <li><%= link_to "Home", root_path %></li>
-            <li><%= link_to "Map View", map_path %></li>
         </ul>
       </label>
-      <% if user_signed_in? && current_user.admin == true %>
-        <button id="uploadButton"><span class="emoji">📎</span></button>
-        <%= render 'form' %>
-      <% end %>
-
-      <div class="<%=current_page?(root_path) ? 'title title-animated' : 'title' %>">
-        <%= render "title" %>
-        </div>
     </nav>
     <%= yield %>
 
-    <button id="scrollButton">Top</button>
+    <button id="scrollButton">⟁</button>
 
     <script>
       window.onscroll = function() {scrollFunction()};

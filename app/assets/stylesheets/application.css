@@ -20,14 +20,28 @@
   font-family:        'Montserrat', sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-image: url("whitewall.jpg");
+  margin: 0;
+}
+
+main {
+  margin-top: 18vh;
+}
+
 h1 {
-  font-family: 'Play', sans-serif;
+  font-weight: 300;
 }
 
 img {
   border-radius: 4px;
+  object-fit:    cover;
 }
 
-.mapboxgl-canvas-container .mapboxgl-canvas, .mapboxgl-canvas-container, .mapboxgl-interactive, .mapboxgl-map {
-  border-radius: 4px;
+a, p {
+  margin: 0
 }

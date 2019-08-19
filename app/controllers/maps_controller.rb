@@ -7,19 +7,19 @@ class MapsController < ApplicationController
         if params[:latitude] && params[:longitude]
           if params[:related] == 'true'
             @photos = Photo.near([params[:latitude], params[:longitude]], 0.1).where.not(id: params[:photoId].to_i)
-            @criteria = "This Photos Nearby"
+            @criteria = "What's Poppin' Near You"
           else
             @photos = Photo.most_visited.near([params[:latitude], params[:longitude]], 0.25, :order => 'distance')
-            @criteria = "Most Visited Nearby"
+            @criteria = "What's Poppin' Near You"
           end
         else
           @photos = Photo.most_visited.with_attached_image.includes(:user, :visits).limit(50)
-          @criteria = "Most Visited"
+          @criteria = "What's Poppin'"
         end
         
         if @photos.count(:all) < 5 && params[:related] == 'false'
           @photos = Photo.most_visited.with_attached_image.includes(:user, :visits).limit(50)
-          @criteria = "Most Visited"
+          @criteria = "What's Poppin'"
         end
 
         render json: {
