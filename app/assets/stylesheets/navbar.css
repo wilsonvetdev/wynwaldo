@@ -11,4 +11,5 @@ nav {
   background-color: rgba(255, 255, 255, 0.75);
   border-bottom: 1px lightgray;
   box-shadow: 0 5px 16px 3px rgba(150, 150, 150, 0.6);
+  z-index: 10;
 }
