@@ -66,7 +66,7 @@ RSpec.describe "uploading photo", type: :system, js: true do
       expect(files[0]).to have_css("img[alt*='image.png']")
     end
     
-    xit "should have error on the image preview" do
+    it "should have error on the image preview" do
       find('#image-upload-dropzone > .dz-error').hover
       errorMessage = page.find('#image-upload-dropzone > .dz-error > .dz-error-message')
       expect(errorMessage).to have_text("You can't upload files of this type.")
@@ -95,7 +95,7 @@ RSpec.describe "uploading photo", type: :system, js: true do
       expect(files[0]).to_not have_css("img[alt*='image.png']")
     end
 
-    xit "should allow user to click on error image to clear dropzone" do
+    it "should allow user to click on error image to clear dropzone" do
       page.find('#image-upload-dropzone > .dz-error').click
       expect(page.find('#image-upload-dropzone')).to_not have_selector('.dz-image-preview') 
     end

@@ -256,7 +256,7 @@ class Map extends Component {
                 <li className="tr-list-item" key={photo.id}>
                   <div>
                     <a href={photo.location}>
-                      <img src={photo.image}/>
+                      <img src={photo.image} id={`photo-${photo.id}`}/>
                     </a>
                     <div className="bottom-right">
                         {photo.visits} visits
