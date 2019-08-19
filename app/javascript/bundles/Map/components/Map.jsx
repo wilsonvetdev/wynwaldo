@@ -247,7 +247,7 @@ class Map extends Component {
     const { photos, criteria } = this.state
     return(
       <React.Fragment>
-        {criteria && photos.length > 0 && <h1 className="title-h1">{criteria} Photos</h1>}
+        {criteria && photos.length > 0 && <h1 className="title-h1">{criteria}</h1>}
         {
           (showList && photos.length > 0) &&
           <section className="tr-section">
@@ -258,9 +258,9 @@ class Map extends Component {
                     <a href={photo.location}>
                       <img src={photo.image}/>
                     </a>
-                    <p>
-                      {photo.visits} visits
-                    </p>
+                    <div className="bottom-right">
+                        {photo.visits} visits
+                    </div>
                     <p>
                       {photo.distance.toFixed(2)} mi away {this.props.photo && "from this photo"}
                     </p>
@@ -268,14 +268,14 @@ class Map extends Component {
                       Posted by: {photo.user.email}
                     </p>
                   </div>
-                  <div>
+                  {/* <div>
                     {!this.props.photo && (
                       <button className="show-btn" onClick={() => this.flyTo(photo)}>
                         Show on Map
                       </button>
                     )}
                     <a href={photo.location}>Details</a>
-                  </div>
+                  </div> */}
                 </li>
               ))}
             </ul>
