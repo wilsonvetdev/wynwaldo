@@ -1,0 +1,23 @@
+.banner {
+  position: absolute;
+  width: 100%;
+  top: 20vw;
+  display: flex;
+  justify-content: center;
+}
+
+.banner span {
+  width: 250px;
+}
+
+.banner span:not(:empty) {
+  height: 45px;
+}
+
+.banner.alert span {
+  background-color: lightcoral;
+}
+
+.banner.notice span {
+  background-color: lightgreen;
+}

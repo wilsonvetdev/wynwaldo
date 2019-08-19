@@ -1,5 +1,13 @@
 nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   width: 100%;
-  border-bottom: 5px solid fuchsia;
-  margin: 10px 0;
+  height: 15vw;
+  min-height: 65px;
+  position: fixed;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.75);
+  border-bottom: 1px lightgray;
+  box-shadow: 0 5px 16px 3px rgba(150, 150, 150, 0.6);
 }

@@ -1,0 +1,22 @@
+#uploadButton {
+  position: relative;
+  border: 1px solid gray;
+  border-radius: 4px;
+  background-color: #ffffff;
+  cursor: pointer;
+  max-height: 41px;
+  padding: 7px;
+}
+
+#uploadButton:hover {
+  background-color: #eeeeee;
+}
+
+#uploadButton:focus {
+  outline: none !important;
+}
+
+#uploadButton span.emoji {
+  font-size: 20px;
+  vertical-align: middle;
+}

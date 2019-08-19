@@ -17,15 +17,7 @@
 * { 
   -webkit-box-sizing: border-box;
   box-sizing:         border-box; 
-  font-family:        'Montserrat', sans-serif;
-}
-
-h1 {
-  font-family: 'Play', sans-serif;
-}
-
-img {
-  border-radius: 4px;
+  /* font-family:        'Montserrat', sans-serif; */
 }
 
 html {
@@ -33,5 +25,23 @@ html {
 }
 
 body {
+  background-image: url("whitewall.jpg");
   margin: 0;
+}
+
+main {
+  margin-top: 18vh;
+}
+
+h1 {
+  font-family: 'Cutive Mono', monospace;
+}
+
+img {
+  border-radius: 4px;
+  object-fit:    cover;
+}
+
+a, p {
+  margin: 0
 }

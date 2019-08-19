@@ -1,18 +1,20 @@
 #backButton {
+  /* position: absolute;
+  left: 0; */
   border: 1px solid gray;
   border-radius: 4px;
   background-color: #ffffff;
   cursor: pointer;
   max-height: 42px;
   padding: 0 12px;
-  margin: 0;
+  margin: 10px;
   line-height: 43px;
   font-size: 15px;
   vertical-align: middle;
 }
 
 #backButton:hover {
-  background-color: #eeeeee;
+  background-color: #FF00FF;
 }
 
 #backButton:focus {

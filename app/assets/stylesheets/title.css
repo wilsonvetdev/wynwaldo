@@ -1,11 +1,9 @@
-.title svg {
-  height: 145px;
-  width: 100%;
+.title {
+  width: 45%;
 }
 
-.title {
-  width: 80%;
-  margin: auto;
+.title svg {
+  width: 100%;
 }
 
 .title #WynWaldo {
@@ -20,25 +18,14 @@
 
 .title-animated  #WynWaldo{
   fill-opacity: 0;
-  stroke-dashoffset: -700px;
-  /* animation: title_fill 2s linear forwards; */
+  stroke-dashoffset: -800px;
   animation: title_stroke 1.5s linear forwards;
   animation-delay: 2s;
   align-content: center;
 }
 
-@keyframes title_fill {
-  from {
-    fill-opacity: 0;
-    }
-  to {
-    stroke-dashoffset: -700px;
-    stroke-dashoffset: 0px;
-    }
-  }
-
-  @keyframes title_stroke {
-    0%  {stroke-dashoffset: -700px;}
-    80%  {stroke-dashoffset:0;fill-opacity:0;}
-    100%{stroke-dashoffset:0;fill-opacity:1;}
-  }
+@keyframes title_stroke {
+  0%  {stroke-dashoffset: -700px;}
+  80%  {stroke-dashoffset:0;fill-opacity:0;}
+  100%{stroke-dashoffset:0;fill-opacity:1;}
+}
